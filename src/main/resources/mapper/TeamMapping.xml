@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<mapper namespace="com.dqs.dao.TeamDao">
+		<!-- 增加一条班级信息 -->
+		<insert id="insertOne" parameterType="Team">
+			insert into b_team values(#{id},#{name})
+		</insert>
+		
+		<!-- 根据编号删除一条信息 -->
+		<delete id="deleteOne" parameterType="String">
+			delete from b_team where id=#{id}
+		</delete>
+		
+		<!-- 根据编号修改一条信息 -->
+		<update id="updateOne" parameterType="Team">
+			update b_team set name=#{name} where id=#{id}
+		</update>
+		
+		<!-- 根据编号查询全部信息 -->
+		<select id="selectOne" resultType="Team" parameterType="String">
+			select * from b_team where id =#{id}
+		</select>
+		
+		<!-- 查询全部信息 -->
+		<select id="selectList" resultType="Team" >
+			select * from b_team 
+		</select>
+	</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<mapper namespace="com.dqs.dao.UserDao">
+		<!-- 增加一条用户信息 -->
+		<insert id="insertOne" parameterType="User">
+			insert into s_user values(#{id},#{account},#{password},#{role})
+		</insert>
+		
+		<!-- 根据用户编号删除一条信息 -->
+		<delete id="deleteOne" parameterType="String">
+			delete from s_user where id=#{id}
+		</delete>
+		
+		<!-- 根据用户编号修改一个信息 -->
+		<update id="updateOne" parameterType="User">
+			update s_user set password=#{password},role_id =#{role_id} where id=#{id}
+		</update>
+		
+		<!-- 根据用户名查询全部信息 -->
+		<select id="selectOne" resultType="User" parameterType="String">
+			select * from s_user where account =#{account}
+		</select>
+		
+		<!-- 查询全部信息 -->
+		<select id="selectList" resultType="User" >
+			select * from s_user 
+		</select>
+	</mapper>

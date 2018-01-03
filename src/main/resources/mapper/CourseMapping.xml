@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 目的：为dao接口方法提供sql语句配置 -->
+	<mapper namespace="com.dqs.dao.CourseDao">
+		<!-- 增加一条课程信息 -->
+		<insert id="insertOne" parameterType="Course">
+			insert into b_course values(#{id},#{name},#{teacher_id},#{time})
+		</insert>
+		
+		<!-- 根据编号删除一条信息 -->
+		<delete id="deleteOne" parameterType="String">
+			delete from b_course where id=#{id}
+		</delete>
+		
+		<!-- 根据编号修改一条信息 -->
+		<update id="updateOne" parameterType="Course">
+			update b_course set name=#{name},teacher_id =#{teacher_id} ,time=#{time} where id=#{id}
+		</update>
+		
+		<!-- 根据编号查询全部信息 -->
+		<select id="selectOne" resultType="Course" parameterType="String">
+			select * from b_course where id =#{id}
+		</select>
+		
+		<!-- 查询全部信息 -->
+		<select id="selectList" resultType="Course" >
+			select * from b_course 
+		</select>
+	</mapper>
