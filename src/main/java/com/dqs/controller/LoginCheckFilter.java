@@ -15,8 +15,8 @@ import javax.servlet.annotation.WebFilter;
  * @author 王天博
  * 2018年1月4日
  */
-@WebFilter(filterName = "CheckLoginFilter",urlPatterns = "/*")
-public class CheckLoginFilter implements Filter {
+//@WebFilter(filterName = "LoginCheckFilter",urlPatterns = "/*")
+public class LoginCheckFilter implements Filter {
 	
 	/* (non Javadoc) 
 	 * @Title: destroy
