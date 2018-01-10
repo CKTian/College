@@ -10,7 +10,7 @@ public class Student {
 	private String user_id ; //用户编号
 	private String name    ; //姓名
 	private String team_id ; //班级编号
-	private Integer gender ; //性别
+	private int gender ; //性别
 	private String tel     ; //电话
 	private String reward  ; //奖惩
 	private String point   ; //学分
@@ -38,10 +38,10 @@ public class Student {
 	public void setTeam_id(String team_id) {
 		this.team_id = team_id;
 	}
-	public Integer getGender() {
+	public int getGender() {
 		return gender;
 	}
-	public void setGender(Integer gender) {
+	public void setGender(int gender) {
 		this.gender = gender;
 	}
 	public String getTel() {
@@ -67,7 +67,7 @@ public class Student {
 		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", gender="
 				+ gender + ", tel=" + tel + ", reward=" + reward + ", point=" + point + "]";
 	}
-	public Student(String id, String user_id, String name, String team_id, Integer gender, String tel, String reward,
+	public Student(String id, String user_id, String name, String team_id, int gender, String tel, String reward,
 			String point) {
 		super();
 		this.id = id;
