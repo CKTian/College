@@ -6,7 +6,7 @@
 	<mapper namespace="com.dqs.dao.TeacherDao">
 		<!-- 增加一条教师信息 -->
 		<insert id="insertOne" parameterType="Teacher">
-			insert into b_teacher values(#{id},#{team_id},#{name})
+			insert into b_teacher values(#{id},#{team_id},#{name},#{user_id})
 		</insert>
 		
 		<!-- 根据编号删除一条信息 -->

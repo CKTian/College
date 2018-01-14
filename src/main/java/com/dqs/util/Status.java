@@ -6,16 +6,8 @@ package com.dqs.util;
  * 2018年1月10日
  */
 public class Status {
-	private String value;//状态值
+	private String value;//状态值 0-失败 1-成功
 	private String message;//状态描述
-	private String token;//用户信息
-	
-	public String getToken() {
-		return token;
-	}
-	public void setToken(String token) {
-		this.token = token;
-	}
 	public String getValue() {
 		return value;
 	}
@@ -30,13 +22,12 @@ public class Status {
 	}
 	@Override
 	public String toString() {
-		return "Status [value=" + value + ", message=" + message + ", token=" + token + "]";
+		return "Status [value=" + value + ", message=" + message +  "]";
 	}
 	public Status(String value, String message, String token) {
 		super();
 		this.value = value;
 		this.message = message;
-		this.token = token;
 	}
 	public Status() {
 		super();

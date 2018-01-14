@@ -9,5 +9,5 @@ public interface StudentDao {
 	public void deleteOne();
 	public void updateOne();
 	public Student selectOne();
-	public List<Student> selectList();
+	public List<Student> selectList(String user_id);
 }

@@ -9,7 +9,7 @@ public class User {
 	private String id       ;// 用户编号
 	private String account  ;//用户名
 	private String password ;//密码
-	private int role_id ;//权限标识符
+	private Integer role_id ;//权限标识符
 	public String getId() {
 		return id;
 	}
@@ -28,17 +28,17 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public int getRole_id() {
+	public Integer getrole_id() {
 		return role_id;
 	}
-	public void setRole_id(int role_id) {
+	public void setrole_id(Integer role_id) {
 		this.role_id = role_id;
 	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", account=" + account + ", password=" + password + ", role_id=" + role_id + "]";
 	}
-	public User(String id, String account, String password, int role_id) {
+	public User(String id, String account, String password, Integer role_id) {
 		super();
 		this.id = id;
 		this.account = account;

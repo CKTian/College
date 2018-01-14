@@ -1,4 +1,4 @@
-package com.dqs.controller;
+package com.dqs.util;
 
 import java.io.IOException;
 
@@ -43,9 +43,13 @@ public class LoginCheckFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		
-		//判断是否登录
-		
+		//判断是否登录-获取token中的值
+		System.out.println("！！！！！！！");
+		//ckJwt.parseJWT(jwt);
+		//判断 token 是否超时 
+		//
 		//最后一步：如果还有其他的过滤器就调用其它的过滤器
+		
 		chain.doFilter(req, resp);
 
 	}

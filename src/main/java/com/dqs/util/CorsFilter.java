@@ -1,4 +1,4 @@
-package com.dqs.controller;
+package com.dqs.util;
 
 import java.io.IOException;
 
@@ -20,9 +20,9 @@ public class CorsFilter implements Filter {
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletResponse  httpServletResponse = (HttpServletResponse) res;
-        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
-        httpServletResponse.setHeader("Access-Control-Allow-Headers", "accept,content-type"); 
-        httpServletResponse.setHeader("Access-Control-Allow-Methods", "OPTIONS,GET,POST,DELETE,PUT"); 
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        httpServletResponse.setHeader("Access-Control-Allow-Headers", "accept,content-type,authorization"); 
+        httpServletResponse.setHeader("Access-Control-Allow-Methods", "GET,POST"); 
         chain.doFilter(req, httpServletResponse); 
 
 	}

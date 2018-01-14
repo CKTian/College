@@ -6,7 +6,7 @@
 	<mapper namespace="com.dqs.dao.UserDao">
 		<!-- 增加一条用户信息 -->
 		<insert id="insertOne" parameterType="User">
-			insert into s_user values(#{id},#{account},#{password},#{role})
+			insert into s_user values(#{id},#{account},#{password},#{role_id})
 		</insert>
 		
 		<!-- 根据用户编号删除一条信息 -->
@@ -14,9 +14,9 @@
 			delete from s_user where id=#{id}
 		</delete>
 		
-		<!-- 根据用户编号修改一个信息 -->
-		<update id="updateOne" parameterType="User">
-			update s_user set password=#{password},role_id =#{role_id} where id=#{id}
+		<!-- 根据用户编号修改自己的密码 -->
+		<update id="updateOne" parameterType="String">
+			update s_user set password=#{password} where account=#{account}
 		</update>
 		
 		<!-- 根据用户名查询全部信息 -->
@@ -27,5 +27,10 @@
 		<!-- 查询全部信息 -->
 		<select id="selectList" resultType="User" >
 			select * from s_user 
+		</select>
+		
+		<!-- 按权限标识符查询对应角色的所有 -->
+		<select id="selectWithRole" resultType="User" parameterType="Integer">
+			select * from s_user where role_id = #{role_id}
 		</select>
 	</mapper>

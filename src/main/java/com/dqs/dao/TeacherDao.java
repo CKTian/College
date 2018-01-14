@@ -6,8 +6,8 @@ import com.dqs.entity.Teacher;
 
 public interface TeacherDao {
 	public void insertOne();
-	public void deleteOne();
+	public void deleteOne(String id);
 	public void updateOne();
-	public Teacher selectOne();
+	public Teacher selectOne(String id);
 	public List<Teacher> selectList();
 }
