@@ -32,4 +32,9 @@
 	 
 	 <!-- 4.扫描web相关的bean -->
 	 <context:component-scan base-package="com.dqs.controller" />
+	 <!-- 5.配置拦截器 -->
+	 <mvc:interceptors>
+	 	<!-- 5.1 跨域拦截器 -->
+	 	<bean class="com.dqs.interceptor.Cors"></bean>
+	 </mvc:interceptors>
 </beans>
