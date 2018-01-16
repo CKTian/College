@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dqs.entity.User;
 import com.dqs.service.UserService;
 import com.dqs.util.CheckJWT;
-import com.dqs.util.LoginCheckFilter;
 import com.dqs.util.Status;
 
 import io.jsonwebtoken.Claims;

@@ -36,7 +36,6 @@ public class CorsFilter implements Filter {
         	httpServletResponse.setStatus(200);
         	httpServletResponse.getWriter();
         }else{
-        	System.out.println("1111");
         	chain.doFilter(req, httpServletResponse); 
         }
         
