@@ -1,5 +1,6 @@
 package com.dqs.interceptor;
 
+import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,56 +20,75 @@ import com.dqs.util.CheckJWT;
 import com.dqs.util.Status;
 
 import io.jsonwebtoken.Claims;
+import net.sf.json.JSONObject;
 
 public class Login implements HandlerInterceptor {
 	@Autowired
 	private UserService us;
+	@ResponseBody
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
 		Status status = new Status();
 		Map map = new HashMap();
-		//ÅĞ¶ÏÊÇ·ñµÇÂ¼
-		//--»ñÈ¡tokenÖĞµÄÖµ
+		PrintWriter out = null ;  
+		JSONObject res = new JSONObject();  
+		//åˆ¤æ–­æ˜¯å¦ç™»å½•
+		//--è·å–tokenä¸­çš„å€¼
 		String token =request.getHeader("Authorization");
 		System.out.println(request.getHeader("Authorization"));
 		if(token != null||token != ""){
-			//½âÎötoken
+			//è§£ætoken
 			Claims claims = CheckJWT.parseJWT(token);
-			//»ñÈ¡tokenÖĞµÄÓÃ»§ĞÅÏ¢
-			//--²éÑ¯³öid--²¢·ÅÖÃ
-			map.put("account", claims.get("account"));//ÓÃ»§Ãû
-			User userinfo = us.selectOne((String) map.get("account"));
-			map.put("id", userinfo.getId());
-			map.put("password", claims.get("password"));//ÃÜÂë
-			map.put("role_id", claims.get("role_id"));//È¨ÏŞ
-			map.put("time", claims.getExpiration());//¹ıÆÚÊ±¼ä
-		}
-		//ÅĞ¶ÏtokenÊÇ·ñ¹ıÆÚ
-		Date date=new Date();//»ñÈ¡µ±Ç°ÏµÍ³Ê±¼ä
-		int result = date.compareTo((Date) map.get("time"));//ÏàµÈÔò·µ»Ø0,Ç°Õß´ó·µ»Ø1,ºóÕß´ó·µ»Ø-1;
-		if(result == -1 || result == 0){
-			//token ºÏ·¨Ã»¹ıÆÚ
-			//ÅĞ¶ÏÓÃ»§Ãû¡¢ÃÜÂëÊÇ·ñºÏ·¨
-			User userinfo = us.selectOne((String) map.get("account"));//¸ù¾İÓÃ»§Ãû²éÑ¯Êı¾İ¿âĞÅÏ¢
-			if((userinfo.getPassword()).equals(map.get("password"))){
-				//ÓÃ»§ÃûºÏ·¨
-				//--½²½âÎöºÃµÄÓÃ»§ĞÅÏ¢·ÅÖµÇëÇóÖĞ
-				request.setAttribute("user", map);
-				//--¹ıÂËÍê³ÉÖ´ĞĞÕı³£µÄcontroller
-				return true;
-			}else{
-				//ÓÃ»§Ãû²»ºÏ·¨
+			if(claims == null){
 				status.setValue("0");
-				status.setMessage("ÓÃ»§Ãû¡¢ÃÜÂëĞÅÏ¢²»·û¡£ÇëÖØĞÂµÇÂ¼");
-				request.setAttribute("status", status);
-				response.sendRedirect("/ErrorController/sendError.do");
+				status.setMessage("ç™»é™†è¿‡æœŸ");
+			    res.put("status",status);  
+			    out = response.getWriter();  
+			    out.append(res.toString());  
+				return false;
+			}else{
+				//è·å–tokenä¸­çš„ç”¨æˆ·ä¿¡æ¯
+				//--æŸ¥è¯¢å‡ºid--å¹¶æ”¾ç½®
+				map.put("account", claims.get("account"));//ç”¨æˆ·å
+				User userinfo = us.selectOne((String) map.get("account"));
+				map.put("id", userinfo.getId());
+				map.put("password", claims.get("password"));//å¯†ç 
+				map.put("role_id", claims.get("role_id"));//æƒé™
+				map.put("time", claims.getExpiration());//è¿‡æœŸæ—¶é—´
+				//åˆ¤æ–­tokenæ˜¯å¦è¿‡æœŸ
+				Date date=new Date();//è·å–å½“å‰ç³»ç»Ÿæ—¶é—´
+				int result = date.compareTo((Date) map.get("time"));//ç›¸ç­‰åˆ™è¿”å›0,å‰è€…å¤§è¿”å›1,åè€…å¤§è¿”å›-1;
+				if(result == -1 || result == 0){
+					//token åˆæ³•æ²¡è¿‡æœŸ
+					//åˆ¤æ–­ç”¨æˆ·åã€å¯†ç æ˜¯å¦åˆæ³•
+					if((userinfo.getPassword()).equals(map.get("password"))){
+						//ç”¨æˆ·ååˆæ³•
+						//--è®²è§£æå¥½çš„ç”¨æˆ·ä¿¡æ¯æ”¾å€¼è¯·æ±‚ä¸­
+						request.setAttribute("user", map);
+						//--è¿‡æ»¤å®Œæˆæ‰§è¡Œæ­£å¸¸çš„controller
+						return true;
+					}else{
+						//ç”¨æˆ·åä¸åˆæ³•
+						status.setValue("0");
+						status.setMessage("ç”¨æˆ·åã€å¯†ç ä¿¡æ¯ä¸ç¬¦ã€‚è¯·é‡æ–°ç™»å½•");
+					    res.put("status",status);  
+					    out = response.getWriter();  
+					    out.append(res.toString());  
+						return false;
+						//response.sendRedirect("/ErrorController/sendError.do");
+					}
+				}else{
+					//è¿‡æœŸ
+					status.setValue("0");
+					status.setMessage("ç™»å½•è¿‡æœŸã€‚è¯·é‡æ–°ç™»å½•");
+				    res.put("status",status);  
+				    out = response.getWriter();  
+				    out.append(res.toString());  
+					return false;
+					//response.sendRedirect("/ErrorController/sendError.do");
+				}
 			}
-		}else{
-			//¹ıÆÚ
-			status.setValue("0");
-			status.setMessage("µÇÂ¼¹ıÆÚ¡£ÇëÖØĞÂµÇÂ¼");
-			request.setAttribute("status", status);
-			response.sendRedirect("/ErrorController/sendError.do");
 		}
 		return false;
 	}

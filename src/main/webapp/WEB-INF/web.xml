@@ -23,11 +23,11 @@
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	<filter>
-    	<filter-name>CorsFilter</filter-name>
-    	<filter-class>com.dqs.util.CorsFilter</filter-class>
-  	</filter>
-  	<filter-mapping>
-    	<filter-name>CorsFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-  	</filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<filter-class>com.dqs.util.CorsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CorsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

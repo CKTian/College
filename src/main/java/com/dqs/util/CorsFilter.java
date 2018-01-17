@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 /**
  * 
- * ·şÎñÆ÷ÇëÇó¿çÓòµÄÖĞ¼ä¼ş
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ16ÈÕ
+ * æœåŠ¡å™¨è¯·æ±‚è·¨åŸŸçš„ä¸­é—´ä»¶
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ16æ—¥
  */
 //@WebFilter(filterName = "CorsFilter",urlPatterns = "/*")
 public class CorsFilter implements Filter {
@@ -36,6 +36,10 @@ public class CorsFilter implements Filter {
         	httpServletResponse.setStatus(200);
         	httpServletResponse.getWriter();
         }else{
+        	//è®¾å®šç¼–ç  
+        	httpServletResponse.setCharacterEncoding("UTF-8");
+    		//è¡¨ç¤ºæ˜¯jsonç±»å‹çš„æ•°æ®
+        	httpServletResponse.setContentType("application/json");
         	chain.doFilter(req, httpServletResponse); 
         }
         

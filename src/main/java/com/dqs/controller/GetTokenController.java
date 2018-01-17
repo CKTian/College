@@ -28,20 +28,20 @@ public class GetTokenController {
 	GetTokenController (){
 		status = new Status();
 	}
-	//--»ñÈ¡token--
+	//--è·å–token--
 	@RequestMapping("/token.do")
 	@ResponseBody
 	public Map token(HttpServletRequest req){
 		Map map = new HashMap();
-		//»ñÈ¡ÇëÇóÖĞµÄÓÃ»§ĞÅÏ¢
+		//è·å–è¯·æ±‚ä¸­çš„ç”¨æˆ·ä¿¡æ¯
 		Map userMap = (Map) req.getAttribute("user");
-		userMap.put("password", "");//½«ÃÜÂëÖÃ¿Õ
-		//ÉèÖÃ×´Ì¬
+		userMap.put("password", "");//å°†å¯†ç ç½®ç©º
+		//è®¾ç½®çŠ¶æ€
 		status.setValue("1");
-		status.setMessage("³É¹¦");
-		map.put("status", status);//×´Ì¬Öµ
+		status.setMessage("æˆåŠŸ");
+		map.put("status", status);//çŠ¶æ€å€¼
 		map.put("userMap", userMap);
-		//·µ»ØÇ°Ì¨
+		//è¿”å›å‰å°
 		return map;
 	}
 }

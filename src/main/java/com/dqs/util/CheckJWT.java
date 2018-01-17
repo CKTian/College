@@ -1,23 +1,29 @@
 package com.dqs.util;
 import javax.xml.bind.DatatypeConverter;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import java.lang.String;
 /**
  * 
- * ¸ù¾İÇ°Ì¨ÇëÇóÍ·»ñÈ¡µÄtoken--½øĞĞ½âÎö
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ12ÈÕ
+ * æ ¹æ®å‰å°è¯·æ±‚å¤´è·å–çš„token--è¿›è¡Œè§£æ
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ12æ—¥
  */
 public class CheckJWT {
 	public static Claims parseJWT(String jwt) {
-		Claims claims = Jwts.parser()        
-	   .setSigningKey(DatatypeConverter.parseBase64Binary("wtbwtb"))
-	   .parseClaimsJws(jwt).getBody();
+		JwtParser claims = Jwts.parser();        
+		JwtParser test = claims.setSigningKey(DatatypeConverter.parseBase64Binary("wtbwtb"));
+		try{
+			 Claims test2 = test.parseClaimsJws(jwt).getBody();
+			return test2;
+		}catch(Exception ex){
+			return null;
+		}
 		//System.out.println("ID:"+claims.get("password"));
 		//System.out.println("Issuer: " + claims.getIssuer());
 		//System.out.println("Expiration: " + claims.getExpiration());
-		return claims;
+		
 	}
 	
 }

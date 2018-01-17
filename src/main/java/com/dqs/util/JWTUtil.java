@@ -9,9 +9,9 @@ import java.util.Date;
 import io.jsonwebtoken.*;
 /**
  * 
- * Éú³Étoken
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ12ÈÕ
+ * ç”Ÿæˆtoken
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ12æ—¥
  */
 public class JWTUtil {
 	public static String createJWT(User user, long ttlMillis) {

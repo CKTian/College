@@ -24,29 +24,28 @@ public class LoginController {
 	LoginController (){
 		status = new Status();
 	}
-	//--µÇÂ¼--
+	//--ç™»å½•--
 	@RequestMapping("/userLogin.do")
 	@ResponseBody
 	public Map userLogin(@RequestBody User user){
 		String account = user.getAccount();
-		User userinfo = us.selectOne(account);//²éÑ¯³öÀ´µÄ
+		User userinfo = us.selectOne(account);//æŸ¥è¯¢å‡ºæ¥çš„
 		Map map = new HashMap();
 		if(userinfo != null&&(userinfo.getPassword()).equals(user.getPassword())){
-			//µÇÂ¼³É¹¦
-			//½«ÓÃ»§ĞÅÏ¢ĞÎ³Étoken
+			//ç™»å½•æˆåŠŸ
+			//å°†ç”¨æˆ·ä¿¡æ¯å½¢æˆtoken
 			String token = JWTUtil.createJWT(userinfo,1000*60*60*2);
-			//·µ»ØÖµ¸øÇ°Ì¨
+			//è¿”å›å€¼ç»™å‰å°
 			status.setValue("1");
-			status.setMessage("-=µÇÂ¼³É¹¦=-");
+			status.setMessage("-=ç™»å½•æˆåŠŸ=-");
 			map.put("status", status);
 			map.put("token", token);
 			userinfo.setPassword("");
 			map.put("userinfo", userinfo);
-			
 			return map;
 		}else{
 			status.setValue("0");
-			status.setMessage("-=µÇÂ¼Ê§°Ü=-");
+			status.setMessage("-=ç™»å½•å¤±è´¥=-");
 			map.put("status", status);
 			return map;
 		}

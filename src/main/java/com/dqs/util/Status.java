@@ -1,13 +1,13 @@
 package com.dqs.util;
 /**
  * 
- * ×´Ì¬ ¹¤¾ßÀà
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ10ÈÕ
+ * çŠ¶æ€ å·¥å…·ç±»
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ10æ—¥
  */
 public class Status {
-	private String value;//×´Ì¬Öµ 0-Ê§°Ü 1-³É¹¦
-	private String message;//×´Ì¬ÃèÊö
+	private String value;//çŠ¶æ€å€¼ 0-å¤±è´¥ 1-æˆåŠŸ
+	private String message;//çŠ¶æ€æè¿°
 	public String getValue() {
 		return value;
 	}
