@@ -8,6 +8,6 @@ public interface TeamDao {
 	public void insertOne();
 	public void deleteOne();
 	public void updateOne();
-	public Team selectOne();
+	public Team selectOne(String team_id);
 	public List<Team> selectList();
 }

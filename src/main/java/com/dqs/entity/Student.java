@@ -1,19 +1,18 @@
 package com.dqs.entity;
 /**
  * 
- * Ñ§ÉúĞÅÏ¢±í
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ3ÈÕ
+ * å­¦ç”Ÿå®ä½“ç±»
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ18æ—¥
  */
 public class Student {
-	private String id      ; //±àºÅ
-	private String user_id ; //ÓÃ»§±àºÅ
-	private String name    ; //ĞÕÃû
-	private String team_id ; //°à¼¶±àºÅ
-	private int gender ; //ĞÔ±ğ
-	private String tel     ; //µç»°
-	private String reward  ; //½±³Í
-	private String point   ; //Ñ§·Ö
+	private String id      ; //id
+	private String user_id ; //ç”¨æˆ·ç¼–å·
+	private String name    ; //å§“å
+	private String team_id ; //ç­çº§id
+	private String tel     ; //ç”µè¯
+	private String reward  ; //å¥–æƒ©
+	private String point   ; //ç»©ç‚¹
 	public String getId() {
 		return id;
 	}
@@ -38,12 +37,6 @@ public class Student {
 	public void setTeam_id(String team_id) {
 		this.team_id = team_id;
 	}
-	public int getGender() {
-		return gender;
-	}
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
 	public String getTel() {
 		return tel;
 	}
@@ -65,7 +58,7 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", gender="
-				+ gender + ", tel=" + tel + ", reward=" + reward + ", point=" + point + "]";
+				 + ", tel=" + tel + ", reward=" + reward + ", point=" + point + "]";
 	}
 	public Student(String id, String user_id, String name, String team_id, int gender, String tel, String reward,
 			String point) {
@@ -74,7 +67,6 @@ public class Student {
 		this.user_id = user_id;
 		this.name = name;
 		this.team_id = team_id;
-		this.gender = gender;
 		this.tel = tel;
 		this.reward = reward;
 		this.point = point;

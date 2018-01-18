@@ -30,7 +30,8 @@ public class JWTUtil {
 		  //Let's set the JWT Claims
 		JwtBuilder builder = Jwts.builder().claim("account",user.getAccount())
 										.claim("password", user.getPassword())
-										.claim("role_id", user.getrole_id())
+										.claim("role_id", user.getRole_id())
+										.claim("gender", user.getGender())
 		                                .signWith(signatureAlgorithm, signingKey);
 		 
 		//if it has been specified, let's add the expiration

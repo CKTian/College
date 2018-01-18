@@ -6,7 +6,7 @@
 	<mapper namespace="com.dqs.dao.UserDao">
 		<!-- 增加一条用户信息 -->
 		<insert id="insertOne" parameterType="User">
-			insert into s_user values(#{id},#{account},#{password},#{role_id})
+			insert into s_user values(#{id},#{account},#{password},#{role_id},#{gender})
 		</insert>
 		
 		<!-- 根据用户编号删除一条信息 -->

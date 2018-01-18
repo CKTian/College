@@ -6,7 +6,7 @@
 	<mapper namespace="com.dqs.dao.StudentDao">
 		<!-- 增加一条学生信息 -->
 		<insert id="insertOne" parameterType="Student">
-			insert into b_student values(#{id},#{user_id},#{name},#{team_id},#{gender},#{tel},#{reward},#{point})
+			insert into b_student values(#{id},#{user_id},#{name},#{team_id},#{tel},#{reward},#{point})
 		</insert>
 		
 		<!-- 根据编号删除一条信息 -->
@@ -21,7 +21,7 @@
 		
 		<!-- 根据用户名查询全部信息 -->
 		<select id="selectOne" resultType="Student" parameterType="String">
-			select * from b_student where id =#{id}
+			select * from b_student where user_id =#{user_id}
 		</select>
 		
 		<!-- 查询全部信息 -->

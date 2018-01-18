@@ -1,15 +1,29 @@
 package com.dqs.entity;
 /**
  * 
- * ÓÃ»§±í
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ3ÈÕ
+ * ç”¨æˆ·è¡¨
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ18æ—¥
  */
 public class User {
-	private String id       ;// ÓÃ»§±àºÅ
-	private String account  ;//ÓÃ»§Ãû
-	private String password ;//ÃÜÂë
-	private Integer role_id ;//È¨ÏŞ±êÊ¶·û
+	private String id       ;// id
+	private String account  ;//ç”¨æˆ·å
+	private String password ;//å¯†ç 
+	private Integer role_id ;//æƒé™
+	private Integer gender ;//æ€§åˆ«
+	
+	public Integer getRole_id() {
+		return role_id;
+	}
+	public void setRole_id(Integer role_id) {
+		this.role_id = role_id;
+	}
+	public Integer getGender() {
+		return gender;
+	}
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
 	public String getId() {
 		return id;
 	}
@@ -28,26 +42,23 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Integer getrole_id() {
-		return role_id;
-	}
-	public void setrole_id(Integer role_id) {
-		this.role_id = role_id;
-	}
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", account=" + account + ", password=" + password + ", role_id=" + role_id + "]";
+		return "User [id=" + id + ", account=" + account + ", password=" + password + ", role_id=" + role_id
+				+ ", gender=" + gender + "]";
 	}
-	public User(String id, String account, String password, Integer role_id) {
+	public User(String id, String account, String password, Integer role_id, Integer gender) {
 		super();
 		this.id = id;
 		this.account = account;
 		this.password = password;
 		this.role_id = role_id;
+		this.gender = gender;
 	}
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 }
