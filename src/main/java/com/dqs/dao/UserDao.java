@@ -11,4 +11,5 @@ public interface UserDao {
 	public User selectOne(String account);
 	public List<User> selectList();
 	public List<User> selectWithRole(String role_id);
+	public void updateOnePwd(User user);
 }

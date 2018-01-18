@@ -12,6 +12,7 @@ import com.dqs.dao.StudentDao;
 import com.dqs.dao.TeamDao;
 import com.dqs.entity.Student;
 import com.dqs.entity.Team;
+import com.dqs.entity.User;
 import com.dqs.service.StudentService;
 @Service
 @Transactional
@@ -23,6 +24,7 @@ public class StudentServiceImpl implements StudentService {
 	public List<Student> selectList(String user_id) {
 		return sdao.selectList(user_id);
 	}
+	// 查询一个人信息
 	public Map selectOne(String user_id) {
 		Map map = new HashMap();
 		Student student =  sdao.selectOne(user_id);
@@ -33,5 +35,4 @@ public class StudentServiceImpl implements StudentService {
 		map.put("team_name", team_name);
 		return map;
 	}
-
 }

@@ -19,11 +19,12 @@ public class UserServiceImpl implements UserService {
 		return udao.selectOne(account);
 	}
 	
-	public void updateOne(String account) {
-		 udao.updateOne(account);
-	}
 	public List<User> selectTeacher() {
-		String role_id = "2";//∆’Õ®¿œ ¶
+		String role_id = "2";// Â≠¶Áîü
 		return udao.selectWithRole(role_id);
+	}
+
+	public void updateOnePwd(User user) {
+		udao.updateOnePwd(user);
 	}
 }

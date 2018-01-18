@@ -15,8 +15,8 @@
 		</delete>
 		
 		<!-- 根据用户编号修改自己的密码 -->
-		<update id="updateOne" parameterType="String">
-			update s_user set password=#{password} where account=#{account}
+		<update id="updateOnePwd" parameterType="User">
+			update s_user set password=#{password} where id=#{id}
 		</update>
 		
 		<!-- 根据用户名查询全部信息 -->

@@ -30,6 +30,7 @@ public class LoginController {
 	public Map userLogin(@RequestBody User user){
 		String account = user.getAccount();
 		User userinfo = us.selectOne(account);//查询出来的
+		System.out.println(userinfo);
 		Map map = new HashMap();
 		if(userinfo != null&&(userinfo.getPassword()).equals(user.getPassword())){
 			//登录成功
