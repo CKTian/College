@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 	public void updateOnePwd(User user) {
 		udao.updateOnePwd(user);
 	}
+
+	public void updateGender(User user) {
+		udao.updateGender(user);
+		
+	}
 }

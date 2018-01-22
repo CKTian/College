@@ -4,6 +4,17 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<mapper namespace="com.dqs.dao.CourseDao">
+		<!-- 配置课程和老师多对一的关系 -->
+		<resultMap type="Course" id="courseList">
+			<result property="id" column="id"/>
+			<result property="name" column="name"/>
+			<result property="teacher_id" column="teacher_id"/>
+			<result property="time" column="time"/>
+			<association property="teacher" javaType="Teacher">
+				<result property="id" column="tid"/>
+				<result property="name" column="tname"/>
+			</association>
+		</resultMap>
 		<!-- 增加一条课程信息 -->
 		<insert id="insertOne" parameterType="Course">
 			insert into b_course values(#{id},#{name},#{teacher_id},#{time})
@@ -24,8 +35,8 @@
 			select * from b_course where id =#{id}
 		</select>
 		
-		<!-- 查询全部信息 -->
-		<select id="selectList" resultType="Course" >
-			select * from b_course 
+		<!-- 查询全部课程 信息 -->
+		<select id="selectList" resultMap="courseList">
+			select c.id,c.name,c.time,t.name as tname from b_course c,b_teacher t where c.teacher_id = t.id 
 		</select>
 	</mapper>

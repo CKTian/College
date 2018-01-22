@@ -1,15 +1,19 @@
 package com.dqs.entity;
 /**
  * 
- * �γ̱�
- * @author ���첩
- * 2018��1��3��
+ * 课程实体类
+ * @author 王天博
+ * 2018年1月22日
  */
 public class Course {
-	private String id         ;//���
-	private String name       ;//�γ�  
-	private String teacher_id ;//��ʦ���
-	private String time       ;//�Ͽ�ʱ��
+	private String id         ;//课程编号
+	private String name       ;//课程名
+	private String teacher_id ;//老师id
+	private String time       ;//上课时间
+	
+	private Teacher teacher; //一个老师对应多门课程--多对一的关系
+	private String tname;//要查询出 老师的名字
+	
 	public String getId() {
 		return id;
 	}
@@ -34,16 +38,31 @@ public class Course {
 	public void setTime(String time) {
 		this.time = time;
 	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", name=" + name + ", teacher_id=" + teacher_id + ", time=" + time + "]";
+		return "Course [id=" + id + ", name=" + name + ", teacher_id=" + teacher_id + ", time=" + time + ", teacher="
+				+ teacher + ", tname=" + tname + "]";
 	}
-	public Course(String id, String name, String teacher_id, String time) {
+	public Course(String id, String name, String teacher_id, String time, Teacher teacher, String tname) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.teacher_id = teacher_id;
 		this.time = time;
+		this.teacher = teacher;
+		this.tname = tname;
 	}
 	public Course() {
 		super();

@@ -35,4 +35,8 @@ public class StudentServiceImpl implements StudentService {
 		map.put("team_name", team_name);
 		return map;
 	}
+	//修改个人电话信息
+	public void updateTel(Student student) {
+		sdao.updateTel(student);
+	}
 }

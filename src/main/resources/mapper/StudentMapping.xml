@@ -16,9 +16,12 @@
 		
 		<!-- 根据用户编号修改一个信息 -->
 		<update id="updateOne" parameterType="Student">
-			update b_student set team_id=#{team_id},name=#{name},gender=#{gender},tel=#{tel},reward=#{reward},point=#{point} where id=#{id}
+			update b_student set team_id=#{team_id},name=#{name},tel=#{tel},reward=#{reward},point=#{point} where id=#{id}
 		</update>
-		
+		<!-- 根据id修改一个人的电话信息 -->
+		<update id="updateTel" parameterType="Student">
+			update b_student set tel=#{tel} where user_id=#{user_id}
+		</update>
 		<!-- 根据用户名查询全部信息 -->
 		<select id="selectOne" resultType="Student" parameterType="String">
 			select * from b_student where user_id =#{user_id}

@@ -19,6 +19,10 @@
 			update s_user set password=#{password} where id=#{id}
 		</update>
 		
+		<!-- 根据编号修改自己的性别 -->
+		<update id="updateGender" parameterType="User">
+			update s_user set gender=#{gender} where id =#{id}
+		</update>
 		<!-- 根据用户名查询全部信息 -->
 		<select id="selectOne" resultType="User" parameterType="String">
 			select * from s_user where account =#{account}

@@ -10,4 +10,5 @@ public interface StudentDao {
 	public void updateOne();
 	public Student selectOne(String user_id);
 	public List<Student> selectList(String user_id);
+	public void updateTel(Student student);
 }

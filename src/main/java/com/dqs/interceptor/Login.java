@@ -36,7 +36,6 @@ public class Login implements HandlerInterceptor {
 		//判断是否登录
 		//--获取token中的值
 		String token =request.getHeader("Authorization");
-		System.out.println(request.getHeader("Authorization"));
 		if(token != null||token != ""){
 			//解析token
 			Claims claims = CheckJWT.parseJWT(token);

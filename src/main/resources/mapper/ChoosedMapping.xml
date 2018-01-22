@@ -19,13 +19,14 @@
 			update b_choosed_course set course_id=#{course_id},score =#{score} where id=#{id}
 		</update>
 		
-		<!-- 根据编号查询全部信息 -->
-		<select id="selectOne" resultType="Choosed" parameterType="String">
-			select * from b_choosed_course where id =#{id}
+		<!-- 查询登录者的所有选的课的id -->
+		<select id="selectOwnCourse" resultType="Choosed" parameterType="String">
+			select course_id from b_choosed_course where user_id =#{userId}
 		</select>
 		
 		<!-- 查询全部信息 -->
 		<select id="selectList" resultType="Choosed" >
 			select * from b_choosed_course 
 		</select>
+		
 	</mapper>

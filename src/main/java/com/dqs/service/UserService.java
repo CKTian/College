@@ -8,4 +8,5 @@ public interface UserService {
 	public User selectOne(String account);
 	public void updateOnePwd(User user);
 	public List<User> selectTeacher();
+	public void updateGender(User user);
 }

@@ -1,15 +1,15 @@
 package com.dqs.entity;
 /**
  * 
- * ½ÌÊ¦±í
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ3ÈÕ
+ * TODO è€å¸ˆå®ä½“ç±»
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ22æ—¥
  */
 public class Teacher {
-	private String id      ;//±àºÅ
-	private String team_id ;//°à¼¶±àºÅ
-	private String name    ;//ĞÕÃû
-	private String user_id;//½ÌÊ¦±àºÅ
+	private String id      ;//id
+	private String team_id ;//ç­çº§id
+	private String name    ;//è€å¸ˆå
+	private String user_id;//æ•™å¸ˆç¼–å·
 	
 	public String getUser_id() {
 		return user_id;
