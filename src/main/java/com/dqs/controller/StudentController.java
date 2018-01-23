@@ -111,7 +111,6 @@ public class StudentController {
 		// 获取参数--电话性别
 		String tel = (String) basicInfoMap.get("tel");
 		Integer gender = (Integer) basicInfoMap.get("gender");
-		System.out.println("性别啊"+gender);
 		//放置成User对象
 		User user = new User();
 		user.setId(id);
@@ -172,6 +171,50 @@ public class StudentController {
 		}
 		status.setValue("1");
 		status.setMessage("添加成功");
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: selectChoosedList  
+	 * @Description: 查询登录者的所有选课
+	 * @author 王天博
+	 * @param @param req
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectChoosedList.do")
+	@ResponseBody
+	public List selectChoosedList(HttpServletRequest req){
+		//从请求头中获取user信息
+		Map userMap = (Map) req.getAttribute("user");
+		// 获取登录者的id
+		String userId = (String) userMap.get("id");
+		List list = chs.selectOwnChoosed(userId);
+		System.out.println(list);
+		return list;
+	}
+	@RequestMapping("/deleteChoosedCourse.do")
+	@ResponseBody
+	public Status deleteChoosedCourse(HttpServletRequest req,@RequestBody Object deleteChoosedList){
+		Choosed choosed = new Choosed();
+		//从请求头中获取user信息
+		Map userMap = (Map) req.getAttribute("user");
+		//转换参数类型
+		Map listMap = (Map) deleteChoosedList;
+		ArrayList<Map> list = (ArrayList<Map>) listMap.get("list");
+		// 获取登录者的id
+		String id = (String) userMap.get("id");
+		// 遍历list
+		for(int i = 0;i<list.size();i++){
+			//获取课程号
+			String courseId = (String) list.get(i).get("course_id");
+			//将课程号等信息插入到选课表
+			choosed.setUser_id(id);
+			choosed.setCourse_id(courseId);
+			chs.deleteOne(choosed);
+		}
+		status.setValue("1");
+		status.setMessage("删除成功");
 		return status;
 	}
 }

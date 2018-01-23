@@ -4,14 +4,28 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<mapper namespace="com.dqs.dao.ChoosedDao">
+		<resultMap type="Choosed" id="choosedList">
+			<result property="id" column="id"/>
+			<result property="user_id" column="user_id"/>
+			<result property="course_id" column="course_id"/>
+			<result property="score" column="score"/>
+			<association property="course" javaType="Course">
+				<result property="id" column="cid"/>
+				<result property="name" column="cname"/>
+				<result property="time" column="time"/>
+				<association property="teacher" javaType="Teacher">
+					<result property="name" column="tname"/>
+				</association>
+			</association>
+		</resultMap>
 		<!-- 增加一条选课信息 -->
 		<insert id="insertOne" parameterType="Choosed">
 			insert into b_choosed_course values(#{id},#{user_id},#{course_id},#{score})
 		</insert>
 		
 		<!-- 根据编号删除一条信息 -->
-		<delete id="deleteOne" parameterType="String">
-			delete from b_choosed_course where id=#{id}
+		<delete id="deleteOne" parameterType="Choosed">
+			delete from b_choosed_course where user_id=#{user_id} and course_id = #{course_id} 
 		</delete>
 		
 		<!-- 根据编号修改一个选课信息 -->
@@ -23,10 +37,21 @@
 		<select id="selectOwnCourse" resultType="Choosed" parameterType="String">
 			select course_id from b_choosed_course where user_id =#{userId}
 		</select>
+		<!-- 多表联查 查询登陆者所选课 -->
+		<select id="selectOwnChoosed" resultMap="choosedList" parameterType="String">
+			select cc.id,cc.course_id, cc.score, c.name as cname, c.time, t.name as tname
+			from b_choosed_course cc, b_course c, b_teacher t
+			where 
+			cc.course_id = c.id 
+			and 
+			c.teacher_id = t.id
+			and
+			cc.user_id = #{userId}
+		</select>
 		
 		<!-- 查询全部信息 -->
-		<select id="selectList" resultType="Choosed" >
-			select * from b_choosed_course 
+		<select id="selectList" resultType="Choosed" parameterType="String">
+			select * from b_choosed_course
 		</select>
 		
 	</mapper>

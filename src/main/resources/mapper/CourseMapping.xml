@@ -37,6 +37,8 @@
 		
 		<!-- 查询全部课程 信息 -->
 		<select id="selectList" resultMap="courseList">
-			select c.id,c.name,c.time,t.name as tname from b_course c,b_teacher t where c.teacher_id = t.id 
+			select c.id,c.name,c.time,t.name as tname 
+			from b_course c,b_teacher t 
+			where c.teacher_id = t.id 
 		</select>
 	</mapper>
