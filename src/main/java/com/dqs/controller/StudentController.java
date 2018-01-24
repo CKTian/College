@@ -20,6 +20,7 @@ import com.dqs.entity.User;
 import com.dqs.service.ChoosedService;
 import com.dqs.service.CourseService;
 import com.dqs.service.StudentService;
+import com.dqs.service.TeacherService;
 import com.dqs.service.UserService;
 import com.dqs.util.Status;
 
@@ -34,6 +35,8 @@ public class StudentController {
 	private CourseService cs;
 	@Autowired
 	private ChoosedService chs;
+	@Autowired 
+	private TeacherService ts;
 	
 	private Status status;
 	StudentController (){
@@ -193,6 +196,16 @@ public class StudentController {
 		System.out.println(list);
 		return list;
 	}
+	/**
+	 * 
+	 * @Title: deleteChoosedCourse  
+	 * @Description: 登陆者删除选课
+	 * @author 王天博
+	 * @param @param req
+	 * @param @param deleteChoosedList
+	 * @param @return      
+	 * @return Status
+	 */
 	@RequestMapping("/deleteChoosedCourse.do")
 	@ResponseBody
 	public Status deleteChoosedCourse(HttpServletRequest req,@RequestBody Object deleteChoosedList){
@@ -216,5 +229,21 @@ public class StudentController {
 		status.setValue("1");
 		status.setMessage("删除成功");
 		return status;
+	}
+	/**
+	 * 
+	 * @Title: selectAllTeacher  
+	 * @Description: 查询全部老师的信息
+	 * @author 王天博
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectAllTeacher.do")
+	@ResponseBody
+	public List selectAllTeacher() {
+		List list = ts.selectAllTeacherInfo();
+		System.out.println(list);
+		
+		return list;
 	}
 }

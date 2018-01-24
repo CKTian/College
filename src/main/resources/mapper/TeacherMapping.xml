@@ -4,6 +4,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<mapper namespace="com.dqs.dao.TeacherDao">
+		<resultMap type="Teacher" id="teacherList">
+			<result property="id" column="id"/>
+			<result property="team_id" column="team_id"/>
+			<result property="name" column="name"/>
+			<result property="user_id" column="user_id"/>
+			<association property="team" javaType="Team">
+				<result property="name" column="tname"/>
+			</association>
+			<collection property="courseList" ofType="Course">
+				<result property="name" column="cname"/>
+			</collection>
+		</resultMap>
+		<resultMap type="Teacher" id="forTeamName">
+			<result property="id" column="id"/>
+			<result property="team_id" column="team_id"/>
+			<result property="name" column="name"/>
+			<result property="user_id" column="user_id"/>
+			<association property="team" javaType="Team">
+				<result property="name" column="tname"/>
+			</association>
+		</resultMap>
 		<!-- 增加一条教师信息 -->
 		<insert id="insertOne" parameterType="Teacher">
 			insert into b_teacher values(#{id},#{team_id},#{name},#{user_id})
@@ -27,5 +48,21 @@
 		<!-- 查询全部信息 -->
 		<select id="selectList" resultType="Teacher" >
 			select * from b_teacher 
+		</select>
+		
+		<!-- 查询全部老师的基本信息 -->
+		<select id="selectAllTeacherInfo" resultMap="teacherList">
+			select t.name,team.name as tname,c.name as cname
+			from b_teacher t,b_team team, b_course c
+			where t.team_id=team.id
+			and t.id = c.teacher_id
+		</select>
+		
+		<!-- 查询老师的信息 -->
+		<select id="selectOneBasicInfo" resultMap="forTeamName" parameterType="String">
+			select team.name as tname, teacher.name, teacher.id
+			from b_teacher teacher,b_team team 
+			where user_id = #{user_id}
+			and teacher.team_id = team.id
 		</select>
 	</mapper>

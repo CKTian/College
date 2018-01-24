@@ -1,13 +1,13 @@
 package com.dqs.entity;
 /**
  * 
- * °à¼¶±í
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ3ÈÕ
+ * ç­çº§è¡¨å®ä½“ç±»
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ24æ—¥
  */
 public class Team {
-	private String id ;//±àºÅ
-	private String name;//°à¼¶Ãû
+	private String id ;//ç­çº§ç¼–å·
+	private String name;//ç­çº§å
 	public String getId() {
 		return id;
 	}

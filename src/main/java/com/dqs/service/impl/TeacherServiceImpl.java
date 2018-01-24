@@ -1,6 +1,8 @@
 package com.dqs.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +23,13 @@ public class TeacherServiceImpl implements TeacherService {
 	public void deleteOne(String id) {
 		 tdao.deleteOne(id);
 	}
-	public Teacher selectOne(String id) {
-		return tdao.selectOne(id);
+	public List selectOne(String userId) {
+		//查询出老师信息
+		List teacher = tdao.selectOneBasicInfo(userId);
+		return teacher;
+	}
+	public List selectAllTeacherInfo() {
+		return tdao.selectAllTeacherInfo();
 	}
 
 }
