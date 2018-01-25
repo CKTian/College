@@ -25,7 +25,9 @@ public class ErrorController {
 	@ResponseBody
 	public Map sendError(HttpServletRequest req){
 		// 从请求头中获取错误信息
-		Map map = (Map) req.getAttribute("status");
+		Map map = new HashMap();
+		Status status = (Status) req.getAttribute("status");
+		map.put("status", status);
 		// 返回给前台
 		return map;
 	}

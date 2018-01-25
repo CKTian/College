@@ -61,7 +61,6 @@ public class StudentController {
 		User user= (User) loginMap.get("userinfo");//用户登录信息
 		// 获取登录者的id
 		String id = (String) user.getId();
-		System.out.println("请求转发的"+id);
 		// 查询学生表的基本信息--查出班级名
 		Map basicMap = ss.selectOne(id);
 		List list = UserBasicInfo.parseStuInfo(loginMap, basicMap);
@@ -118,7 +117,12 @@ public class StudentController {
 		String id = (String) userMap.get("id");
 		// 获取参数--电话性别
 		String tel = (String) basicInfoMap.get("tel");
-		Integer gender = (Integer) basicInfoMap.get("gender");
+		Integer gender = null;
+		if(basicInfoMap.get("gender").equals("男")){
+			gender =0;
+		}else if (basicInfoMap.get("gender").equals("女")){
+			gender = 1;
+		}
 		//放置成User对象
 		User user = new User();
 		user.setId(id);

@@ -2,6 +2,7 @@ package com.dqs.controller;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dqs.entity.User;
+import com.dqs.service.StudentService;
 import com.dqs.service.UserService;
 import com.dqs.util.CheckJWT;
 import com.dqs.util.Status;
+import com.dqs.util.UserBasicInfo;
 
 import io.jsonwebtoken.Claims;
 @Controller
@@ -24,6 +27,9 @@ import io.jsonwebtoken.Claims;
 public class GetTokenController {
 	@Autowired
 	private UserService us;
+	@Autowired
+	private StudentService ss;
+	
 	private Status status;
 	GetTokenController (){
 		status = new Status();
@@ -34,13 +40,21 @@ public class GetTokenController {
 	public Map token(HttpServletRequest req){
 		Map map = new HashMap();
 		//获取请求中的用户信息
-		Map userInfo = (Map) req.getAttribute("user");
-		userInfo.put("password", "");//将密码置空
+		Map user = (Map) req.getAttribute("user");
+		String account = (String) user.get("account");
+		User userInfo = us.selectOne(account);
+		System.out.println("测试"+userInfo);
+		Map loginInfo = new HashMap();
+		loginInfo.put("userinfo", userInfo);
+		// 查询学生表的基本信息--查出班级名
+		Map basicInfo = ss.selectOne((String)user.get("id"));
+		List list = UserBasicInfo.parseStuInfo(loginInfo, basicInfo);
+		map.put("basicInfoList", list);
 		//设置状态
 		status.setValue("1");
 		status.setMessage("成功");
 		map.put("status", status);//状态值
-		map.put("userInfo", userInfo);
+		map.put("loginInfo", loginInfo);
 		//返回前台
 		return map;
 	}

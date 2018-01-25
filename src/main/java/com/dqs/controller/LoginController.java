@@ -60,8 +60,8 @@ public class LoginController {
 		}else{
 			status.setValue("0");
 			status.setMessage("-=登录失败=-");
-			map.put("status", status);
-			return "redirect:/ErrorController/sendError.do";  
+			req.setAttribute("status", status);
+			return "forward:/ErrorController/sendError.do";  
 		}
 	}
 }
