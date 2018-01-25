@@ -28,6 +28,14 @@ public class Login implements HandlerInterceptor {
 	@ResponseBody
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		Map loginMap = (Map) request.getAttribute("loginMap");
+		String token = "";
+		// 
+		try {
+			token = (String) loginMap.get("token");//获取请求中的token--因为请求转发
+		}catch(Exception e){
+			token =request.getHeader("Authorization");//获取请求头中的token
+		}
 		
 		Status status = new Status();
 		Map map = new HashMap();
@@ -35,8 +43,7 @@ public class Login implements HandlerInterceptor {
 		JSONObject res = new JSONObject();  
 		//判断是否登录
 		//--获取token中的值
-		String token =request.getHeader("Authorization");
-		if(token != null||token != ""){
+		if(token != null){
 			//解析token
 			Claims claims = CheckJWT.parseJWT(token);
 			if(claims == null){

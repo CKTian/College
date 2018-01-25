@@ -14,10 +14,9 @@ import com.dqs.entity.User;
 import com.dqs.util.Status;
 /**
  * 
- * Ö´ĞĞ´íÎócontroller 
- * ÏòÇ°Ì¨·µ»Ø´íÎóĞÅÏ¢
- * @author ÍõÌì²©
- * 2018Äê1ÔÂ16ÈÕ
+ * è¿”å›é”™è¯¯çš„ä¿¡æ¯
+ * @author ç‹å¤©åš
+ * 2018å¹´1æœˆ25æ—¥
  */
 @Controller
 @RequestMapping("/ErrorController")
@@ -25,9 +24,9 @@ public class ErrorController {
 	@RequestMapping("/sendError.do")
 	@ResponseBody
 	public Map sendError(HttpServletRequest req){
-		//»ñÈ¡ÇëÇóÖĞµÄ×´Ì¬ĞÅÏ¢
+		// ä»è¯·æ±‚å¤´ä¸­è·å–é”™è¯¯ä¿¡æ¯
 		Map map = (Map) req.getAttribute("status");
-		//·µ»Ø¸øÇ°Ì¨
+		// è¿”å›ç»™å‰å°
 		return map;
 	}
 }

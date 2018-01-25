@@ -23,6 +23,7 @@ import com.dqs.service.StudentService;
 import com.dqs.service.TeacherService;
 import com.dqs.service.UserService;
 import com.dqs.util.Status;
+import com.dqs.util.UserBasicInfo;
 
 @Controller
 @RequestMapping("/home/StudentController")
@@ -54,14 +55,18 @@ public class StudentController {
 	@RequestMapping("/getBasicInfo.do")
 	@ResponseBody
 	public Map getBasicInfo(HttpServletRequest req){
-		Map map = new HashMap();
-		//从请求头中获取user信息
-		Map user = (Map) req.getAttribute("user");
+		Map loginMap = new HashMap();
+		//从请求头中 登录controller传过来的信息
+		loginMap = (Map) req.getAttribute("loginMap");
+		User user= (User) loginMap.get("userinfo");//用户登录信息
 		// 获取登录者的id
-		String id = (String) user.get("id");
+		String id = (String) user.getId();
+		System.out.println("请求转发的"+id);
 		// 查询学生表的基本信息--查出班级名
-		map = ss.selectOne(id);
-		return map;
+		Map basicMap = ss.selectOne(id);
+		List list = UserBasicInfo.parseStuInfo(loginMap, basicMap);
+		loginMap.put("basicInfoList", list);
+		return loginMap;
 	}
 	/**
 	 * 

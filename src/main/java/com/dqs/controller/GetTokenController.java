@@ -34,13 +34,13 @@ public class GetTokenController {
 	public Map token(HttpServletRequest req){
 		Map map = new HashMap();
 		//获取请求中的用户信息
-		Map userMap = (Map) req.getAttribute("user");
-		userMap.put("password", "");//将密码置空
+		Map userInfo = (Map) req.getAttribute("user");
+		userInfo.put("password", "");//将密码置空
 		//设置状态
 		status.setValue("1");
 		status.setMessage("成功");
 		map.put("status", status);//状态值
-		map.put("userMap", userMap);
+		map.put("userInfo", userInfo);
 		//返回前台
 		return map;
 	}
