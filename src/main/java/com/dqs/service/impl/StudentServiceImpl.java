@@ -39,4 +39,9 @@ public class StudentServiceImpl implements StudentService {
 	public void updateTel(Student student) {
 		sdao.updateTel(student);
 	}
+	//查询老师所带班级的所有学生的信息
+	public List selectOwnStuList(String teamName) {
+		List list = sdao.selectOwnStuList(teamName);
+		return list;
+	}
 }

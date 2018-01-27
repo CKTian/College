@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.dqs.entity.Student;
+import com.dqs.entity.Teacher;
 import com.dqs.entity.User;
 
 /**
@@ -45,7 +46,13 @@ public class UserBasicInfo {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	public String getType() {
+		return type;
+	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
 	// set学生 set老师  set 超级管理员
 	/**
 	 * 
@@ -86,12 +93,38 @@ public class UserBasicInfo {
 		list.add(point);
 		return list;
 	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
+	/**
+	 * 
+	 * @Title: parseTeacherInfo  
+	 * @Description: 解析老师个人信息
+	 * @author 王天博
+	 * @param @param loginMap
+	 * @param @param listInfo
+	 * @param @return      
+	 * @return List<UserBasicInfo>
+	 */
+	public static List<UserBasicInfo> parseTeacherInfo(Map loginMap,List listInfo){
+		List list = new ArrayList();
+		// 登录信息
+		User userinfo = (User) loginMap.get("userinfo");
+		// 要展示的用户基本信息
+		Teacher teacher = (Teacher) listInfo.get(0);
+		UserBasicInfo name = new UserBasicInfo("姓名", teacher.getName());
+		UserBasicInfo account = new UserBasicInfo("用户名", userinfo.getAccount());
+		String sex = "";
+		if(userinfo.getGender() == 0 ){
+			sex = "男";
+		}else if(userinfo.getGender() == 1){
+			sex = "女";
+		}
+		UserBasicInfo gender = new UserBasicInfo("性别", sex);
+		UserBasicInfo team_name = new UserBasicInfo("所带班级", teacher.getTeam().getName());
+		UserBasicInfo image = new UserBasicInfo("", "#icon-nvshi", "picture");
+		list.add(image);
+		list.add(account);
+		list.add(name);
+		list.add(gender);
+		list.add(team_name);
+		return list;
 	}
 }

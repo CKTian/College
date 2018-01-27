@@ -4,6 +4,17 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<mapper namespace="com.dqs.dao.StudentDao">
+		<!-- 设置学生 用户 班级 联表 -->
+		<resultMap type="Student" id="studentList">
+			<result property="id" column="id"/>
+			<result property="name" column="name"/>
+			<result property="tel" column="tel"/>
+			<result property="reward" column="reward"/>
+			<result property="point" column="point"/>
+			<association property="user" javaType="User">
+				<result property="gender" column="gender"/>
+			</association>
+		</resultMap>
 		<!-- 增加一条学生信息 -->
 		<insert id="insertOne" parameterType="Student">
 			insert into b_student values(#{id},#{user_id},#{name},#{team_id},#{tel},#{reward},#{point})
@@ -30,6 +41,14 @@
 		<!-- 查询全部信息 -->
 		<select id="selectList" resultType="Student" >
 			select * from b_student 
+		</select>
+		<!-- 查询登录老师所带班级的全部同学 -->
+		<select id="selectOwnStuList" parameterType="String" resultMap="studentList">
+			select s.*,u.gender as gender
+			from b_student s ,b_team t , s_user u
+			where t.id = s.team_id
+			and s.user_id = u.id
+			and t.name=#{teamName}
 		</select>
 		
 	</mapper>

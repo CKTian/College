@@ -13,6 +13,10 @@ public class Student {
 	private String tel     ; //电话
 	private String reward  ; //奖惩
 	private String point   ; //绩点
+	
+	private User user;//设置一对一的关系
+	private String gender;// 设置显示性别
+	
 	public String getId() {
 		return id;
 	}
@@ -55,13 +59,28 @@ public class Student {
 	public void setPoint(String point) {
 		this.point = point;
 	}
+	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", gender="
-				 + ", tel=" + tel + ", reward=" + reward + ", point=" + point + "]";
+		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", tel=" + tel
+				+ ", reward=" + reward + ", point=" + point + ", user=" + user + ", gender=" + gender + "]";
 	}
-	public Student(String id, String user_id, String name, String team_id, int gender, String tel, String reward,
-			String point) {
+	
+	public Student(String id, String user_id, String name, String team_id, String tel, String reward, String point,
+			User user, String gender) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
@@ -70,6 +89,8 @@ public class Student {
 		this.tel = tel;
 		this.reward = reward;
 		this.point = point;
+		this.user = user;
+		this.gender = gender;
 	}
 	public Student() {
 		super();

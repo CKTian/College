@@ -251,8 +251,6 @@ public class StudentController {
 	@ResponseBody
 	public List selectAllTeacher() {
 		List list = ts.selectAllTeacherInfo();
-		System.out.println(list);
-		
 		return list;
 	}
 }

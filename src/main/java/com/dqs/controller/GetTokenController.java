@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dqs.entity.User;
 import com.dqs.service.StudentService;
+import com.dqs.service.TeacherService;
 import com.dqs.service.UserService;
 import com.dqs.util.CheckJWT;
 import com.dqs.util.Status;
@@ -29,6 +30,8 @@ public class GetTokenController {
 	private UserService us;
 	@Autowired
 	private StudentService ss;
+	@Autowired
+	private TeacherService ts;
 	
 	private Status status;
 	GetTokenController (){
@@ -43,13 +46,21 @@ public class GetTokenController {
 		Map user = (Map) req.getAttribute("user");
 		String account = (String) user.get("account");
 		User userInfo = us.selectOne(account);
-		System.out.println("测试"+userInfo);
 		Map loginInfo = new HashMap();
 		loginInfo.put("userinfo", userInfo);
-		// 查询学生表的基本信息--查出班级名
-		Map basicInfo = ss.selectOne((String)user.get("id"));
-		List list = UserBasicInfo.parseStuInfo(loginInfo, basicInfo);
-		map.put("basicInfoList", list);
+		if((Integer)user.get("role_id") == 0){
+			
+		} else if ((Integer)user.get("role_id") == 1){
+			// 查询老师基本信息
+			List listInfo = ts.selectOne((String)user.get("id"));
+			List list = UserBasicInfo.parseTeacherInfo(loginInfo, listInfo);
+			map.put("basicInfoList", list);
+		} else if ((Integer)user.get("role_id") == 2){
+			// 查询学生表的基本信息--查出班级名
+			Map basicInfo = ss.selectOne((String)user.get("id"));
+			List list = UserBasicInfo.parseStuInfo(loginInfo, basicInfo);
+			map.put("basicInfoList", list);
+		}
 		//设置状态
 		status.setValue("1");
 		status.setMessage("成功");

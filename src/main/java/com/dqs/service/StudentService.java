@@ -10,4 +10,5 @@ public interface StudentService {
 	public List<Student> selectList(String user_id);
 	public Map selectOne(String user_id);
 	public void updateTel(Student student);
+	public List selectOwnStuList(String teamName);
 }
