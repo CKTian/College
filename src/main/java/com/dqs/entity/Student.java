@@ -15,7 +15,7 @@ public class Student {
 	private String point   ; //绩点
 	
 	private User user;//设置一对一的关系
-	private String gender;// 设置显示性别
+	private Integer gender;// 设置显示性别
 	
 	public String getId() {
 		return id;
@@ -66,10 +66,10 @@ public class Student {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public String getGender() {
+	public Integer getGender() {
 		return gender;
 	}
-	public void setGender(String gender) {
+	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
 	
@@ -80,7 +80,7 @@ public class Student {
 	}
 	
 	public Student(String id, String user_id, String name, String team_id, String tel, String reward, String point,
-			User user, String gender) {
+			User user, Integer gender) {
 		super();
 		this.id = id;
 		this.user_id = user_id;

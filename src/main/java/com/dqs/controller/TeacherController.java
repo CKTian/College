@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dqs.entity.Student;
 import com.dqs.entity.Teacher;
 import com.dqs.entity.User;
 import com.dqs.service.StudentService;
@@ -119,7 +120,15 @@ public class TeacherController {
 		status.setMessage("修改成功");
 		return status;
 	}
-	
+	/**
+	 * 
+	 * @Title: selectOwnStu  
+	 * @Description: 查询登录老师所带班级的学生
+	 * @author 王天博
+	 * @param @param tName
+	 * @param @return      
+	 * @return List
+	 */
 	@RequestMapping("/selectOwnStu.do")
 	@ResponseBody
 	public List selectOwnStu(@RequestBody Object tName){
@@ -130,4 +139,30 @@ public class TeacherController {
 		System.out.println(list);
 		return list;
 	}
+	
+	@RequestMapping("/toUpdateStuInfo.do")
+	@ResponseBody
+	public Status toUpdateStuInfo(@RequestBody Object formInfo){
+		Map Info = (Map) formInfo;
+		Map newInfo = (Map) Info.get("form");
+		Student student = new Student();
+		student.setUser_id((String)Info.get("id"));
+		student.setName((String)newInfo.get("name"));
+		student.setGender((Integer)newInfo.get("gender"));
+		student.setTel((String)newInfo.get("tel"));
+		student.setPoint((String)newInfo.get("point"));
+		student.setReward((String)newInfo.get("reward"));
+		//修改学生信息
+		ss.updateOne(student);
+		status.setValue("1");
+		status.setMessage("修改成功");
+		return status;
+	}
+	@RequestMapping("/showStuChoosed.do")
+	@ResponseBody
+	public List showStuChoosed(){
+		List list = new ArrayList();
+		return list;
+	}
+	
 }

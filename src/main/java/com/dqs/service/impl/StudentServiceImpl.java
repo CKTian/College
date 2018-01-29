@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dqs.dao.StudentDao;
 import com.dqs.dao.TeamDao;
+import com.dqs.dao.UserDao;
 import com.dqs.entity.Student;
 import com.dqs.entity.Team;
 import com.dqs.entity.User;
@@ -21,6 +22,8 @@ public class StudentServiceImpl implements StudentService {
 	private StudentDao sdao;
 	@Autowired
 	private TeamDao tdao;
+	@Autowired 
+	private UserDao udao;
 	public List<Student> selectList(String user_id) {
 		return sdao.selectList(user_id);
 	}
@@ -43,5 +46,16 @@ public class StudentServiceImpl implements StudentService {
 	public List selectOwnStuList(String teamName) {
 		List list = sdao.selectOwnStuList(teamName);
 		return list;
+	}
+	// 老师修改一个所带学生的信息
+	public void updateOne(Student student) {
+		System.out.println(student);
+		// 修改学生表
+		sdao.updateOne(student);
+		// 修改用户表
+		User user = new User();
+		user.setId(student.getUser_id());
+		user.setGender(student.getGender());
+		udao.updateGender(user);
 	}
 }

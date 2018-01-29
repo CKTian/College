@@ -7,6 +7,7 @@
 		<!-- 设置学生 用户 班级 联表 -->
 		<resultMap type="Student" id="studentList">
 			<result property="id" column="id"/>
+			<result property="user_id" column="user_id"/>
 			<result property="name" column="name"/>
 			<result property="tel" column="tel"/>
 			<result property="reward" column="reward"/>
@@ -27,7 +28,7 @@
 		
 		<!-- 根据用户编号修改一个信息 -->
 		<update id="updateOne" parameterType="Student">
-			update b_student set team_id=#{team_id},name=#{name},tel=#{tel},reward=#{reward},point=#{point} where id=#{id}
+			update b_student set name=#{name},tel=#{tel},reward=#{reward},point=#{point}where user_id=#{user_id}
 		</update>
 		<!-- 根据id修改一个人的电话信息 -->
 		<update id="updateTel" parameterType="Student">
@@ -44,7 +45,7 @@
 		</select>
 		<!-- 查询登录老师所带班级的全部同学 -->
 		<select id="selectOwnStuList" parameterType="String" resultMap="studentList">
-			select s.*,u.gender as gender
+			select s.*,u.gender
 			from b_student s ,b_team t , s_user u
 			where t.id = s.team_id
 			and s.user_id = u.id

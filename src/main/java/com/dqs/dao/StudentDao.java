@@ -7,7 +7,7 @@ import com.dqs.entity.Student;
 public interface StudentDao {
 	public void insertOne();
 	public void deleteOne();
-	public void updateOne();
+	public void updateOne(Student student);
 	public Student selectOne(String user_id);
 	public List<Student> selectList(String user_id);
 	public void updateTel(Student student);
