@@ -40,5 +40,14 @@
 			select c.id,c.name,c.time,t.name as tname 
 			from b_course c,b_teacher t 
 			where c.teacher_id = t.id 
+			and t.teacher_id = #{teacherId}
+		</select>
+		
+		<!-- 查询登录老师所教的所有课名 -->
+		<select id="showTeachCourse" resultType="Course" parameterType="String">
+			select c.id,c.name,c.time
+			from b_course c,b_teacher t 
+			where c.teacher_id = t.id 
+			and t.user_id = #{teacherId}
 		</select>
 	</mapper>

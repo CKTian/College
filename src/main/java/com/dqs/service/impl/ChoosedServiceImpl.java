@@ -58,5 +58,15 @@ public class ChoosedServiceImpl implements ChoosedService {
 	public void deleteOne(Choosed choosed) {
 		cdao.deleteOne(choosed);
 	}
+	// 展示登录老师所带班级的同学的选课情况
+	public List showStuCourse(String teamName) {
+		List list = cdao.showStuCourse(teamName);
+		return list;
+	}
+	// 展示一个课程中的所有学生
+	public List showChoosedCourseStu(String courseId) {
+		List list = cdao.showChoosedCourseStu(courseId);
+		return list;
+	}
 
 }

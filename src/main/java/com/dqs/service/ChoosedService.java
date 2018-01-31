@@ -8,4 +8,6 @@ public interface ChoosedService {
 	public void insertOne(Choosed choosed);
 	public List selectOwnChoosed(String userId);
 	public void deleteOne(Choosed choosed);
+	public List showStuCourse(String teamName);
+	public List showChoosedCourseStu(String courseId);
 }

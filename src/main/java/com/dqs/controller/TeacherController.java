@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dqs.entity.Student;
 import com.dqs.entity.Teacher;
 import com.dqs.entity.User;
+import com.dqs.service.ChoosedService;
+import com.dqs.service.CourseService;
 import com.dqs.service.StudentService;
 import com.dqs.service.TeacherService;
 import com.dqs.service.UserService;
@@ -31,11 +33,24 @@ public class TeacherController {
 	private TeacherService ts;
 	@Autowired 
 	private StudentService ss;
+	@Autowired
+	private ChoosedService chs;
+	@Autowired 
+	private CourseService cs;
 	
 	private Status status;
 	TeacherController (){
 		status = new Status();
 	}
+	/**
+	 * 
+	 * @Title: getBasicInfo  
+	 * @Description: 查询基本信息
+	 * @author 王天博
+	 * @param @param req
+	 * @param @return      
+	 * @return Map
+	 */
 	@RequestMapping("/getBasicInfo.do")
 	@ResponseBody
 	public Map getBasicInfo(HttpServletRequest req){
@@ -160,9 +175,40 @@ public class TeacherController {
 	}
 	@RequestMapping("/showStuChoosed.do")
 	@ResponseBody
-	public List showStuChoosed(){
-		List list = new ArrayList();
+	public List showStuChoosed(@RequestBody Object tName){
+		Map teamNameMap = (Map) tName;
+		String teamName = (String) teamNameMap.get("teamName");// 获得班级名称
+		// 根据班级名查出 所带班级
+		List list = chs.showStuCourse(teamName);
+		System.out.println(list);
 		return list;
 	}
-	
+	/**
+	 * 
+	 * @Title: showTeachCourse  
+	 * @Description: 展示登录的老师所教的课程
+	 * @author 王天博
+	 * @param @param req
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/showTeachCourse.do")
+	@ResponseBody
+	public List showTeachCourse(HttpServletRequest req){
+		//从请求头中获取user信息
+		Map userMap = (Map) req.getAttribute("user");
+		// 获取登录者的id
+		String id = (String) userMap.get("id");
+		List list = cs.showTeachCourse(id);
+		return list;
+	}
+	@RequestMapping("/showChoosedCourseStu.do")
+	@ResponseBody
+	public List showChoosedCourseStu(@RequestBody Object Cid){
+		// 转换参数类型
+		Map CourseIdMap = (Map) Cid;
+		String courseId = (String) CourseIdMap.get("courseId");
+		List list = chs.showChoosedCourseStu(courseId);
+		return list;
+	}
 }

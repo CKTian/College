@@ -14,8 +14,14 @@ import com.dqs.service.CourseService;
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDao cdao;
+	
 	public List<Course> selectList() {
 		return cdao.selectList();
+	}
+	// 展示登录老师所教的课程
+	public List showTeachCourse(String teacherId) {
+		List list = cdao.showTeachCourse(teacherId);
+		return list;
 	}
 
 }

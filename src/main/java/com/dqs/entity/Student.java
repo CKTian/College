@@ -17,6 +17,9 @@ public class Student {
 	private User user;//设置一对一的关系
 	private Integer gender;// 设置显示性别
 	
+	private Course course;//设置学生表 和课程表一对多
+	private String cname;//设置显示课程名称
+	
 	public String getId() {
 		return id;
 	}
@@ -72,15 +75,28 @@ public class Student {
 	public void setGender(Integer gender) {
 		this.gender = gender;
 	}
+	public Course getCourse() {
+		return course;
+	}
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+	public String getCname() {
+		return cname;
+	}
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 	
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", tel=" + tel
-				+ ", reward=" + reward + ", point=" + point + ", user=" + user + ", gender=" + gender + "]";
+				+ ", reward=" + reward + ", point=" + point + ", user=" + user + ", gender=" + gender + ", course="
+				+ course + ", cname=" + cname + "]";
 	}
 	
 	public Student(String id, String user_id, String name, String team_id, String tel, String reward, String point,
-			User user, Integer gender) {
+			User user, Integer gender, Course course, String cname) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
@@ -91,6 +107,8 @@ public class Student {
 		this.point = point;
 		this.user = user;
 		this.gender = gender;
+		this.course = course;
+		this.cname = cname;
 	}
 	public Student() {
 		super();

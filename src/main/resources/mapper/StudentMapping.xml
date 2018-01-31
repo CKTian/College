@@ -16,6 +16,7 @@
 				<result property="gender" column="gender"/>
 			</association>
 		</resultMap>
+		
 		<!-- 增加一条学生信息 -->
 		<insert id="insertOne" parameterType="Student">
 			insert into b_student values(#{id},#{user_id},#{name},#{team_id},#{tel},#{reward},#{point})
@@ -51,5 +52,4 @@
 			and s.user_id = u.id
 			and t.name=#{teamName}
 		</select>
-		
 	</mapper>

@@ -11,4 +11,5 @@ public interface CourseDao {
 	public void updateOne();
 	public Course selectOne();
 	public List<Course> selectList();
+	public List showTeachCourse(String teacherId);
 }

@@ -12,4 +12,6 @@ public interface ChoosedDao {
 	public List<Choosed> selectList();
 	public List selectOwnCourse(String userId);// 查询出课程号
 	public List selectOwnChoosed(String userId);// 多表联查
+	public List showStuCourse(String teamName);
+	public List showChoosedCourseStu(String courseId);
 }

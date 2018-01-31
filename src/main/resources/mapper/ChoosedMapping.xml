@@ -18,6 +18,30 @@
 				</association>
 			</association>
 		</resultMap>
+		
+		<resultMap type="Choosed" id="OwnStuChoosed">
+			<result property="id" column="id"/>
+			<result property="user_id" column="user_id"/>
+			<association property="student" javaType="Student">
+				<result property="name" column="sname"/>
+			</association>
+			<association property="course" javaType="Course">
+				<result property="name" column="cname"/>
+			</association>
+		</resultMap>
+		
+		<resultMap type="Choosed" id="toShowStuList">
+			<result property="id" column="id"/>
+			<result property="user_id" column="user_id"/>
+			<result property="score" column="score"/>
+			<association property="student" javaType="Student">
+				<result property="name" column="sname"/>
+			</association>
+			<association property="team" javaType="Team">
+				<result property="name" column="tname"/>
+			</association>
+		</resultMap>
+		
 		<!-- 增加一条选课信息 -->
 		<insert id="insertOne" parameterType="Choosed">
 			insert into b_choosed_course values(#{id},#{user_id},#{course_id},#{score})
@@ -54,4 +78,22 @@
 			select * from b_choosed_course
 		</select>
 		
+		<!-- 查询登录老师所带班级的学生的选课情况 -->
+		<select id="showStuCourse" parameterType="String" resultMap="OwnStuChoosed">
+			select cc.id ,s.name as sname,s.user_id,c.name as cname
+			from b_student s ,b_course c,b_choosed_course cc,b_team t
+			where s.user_id = cc.user_id
+			and c.id = cc.course_id
+			and s.team_id = t.id
+			and t.name = #{teamName}
+		</select>
+		
+		<!-- 查询所选课程中的所有学生 -->
+		<select id="showChoosedCourseStu" parameterType="String" resultMap="toShowStuList">
+			select cc.id,cc.user_id,s.name as sname,t.name as tname,cc.score 
+			from b_choosed_course cc,b_student s,b_team t
+			where cc.user_id = s.user_id
+			and s.team_id = t.id
+			and cc.course_id = #{courseId}
+		</select>
 	</mapper>
