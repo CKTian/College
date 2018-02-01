@@ -202,6 +202,15 @@ public class TeacherController {
 		List list = cs.showTeachCourse(id);
 		return list;
 	}
+	/**
+	 * 
+	 * @Title: showChoosedCourseStu  
+	 * @Description: 展示选择该课程的学生的成绩信息
+	 * @author 王天博
+	 * @param @param Cid
+	 * @param @return      
+	 * @return List
+	 */
 	@RequestMapping("/showChoosedCourseStu.do")
 	@ResponseBody
 	public List showChoosedCourseStu(@RequestBody Object Cid){
@@ -211,4 +220,45 @@ public class TeacherController {
 		List list = chs.showChoosedCourseStu(courseId);
 		return list;
 	}
+	/**
+	 * 
+	 * @Title: updateScore  
+	 * @Description: 修改学生成绩
+	 * @author 王天博
+	 * @param @param tableData
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/updateScore.do")
+	@ResponseBody
+	public Status updateScore(@RequestBody Object tableData){
+		// 转换参数类型
+		Map tableDataMap = (Map) tableData;
+		List dataList = (List) tableDataMap.get("tableData");
+		// 将修改的信息传入到数据库
+		chs.updateScore(dataList);
+		//返回状态值
+		status.setValue("1");
+		status.setMessage("分数提交成功");
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: showOwnStuChoosedScore  
+	 * @Description: 查询一位同学的所有科目的成绩
+	 * @author 王天博
+	 * @param @param UserId
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/showOwnStuChoosedScore.do")
+	@ResponseBody
+	public List showOwnStuChoosedScore(@RequestBody Object uid){
+		// 转换参数类型uid
+		Map UserIdMap = (Map) uid;
+		String userId = (String) UserIdMap.get("uid");
+		List list = chs.showOwnStuChoosedScore(userId);
+		return list;
+	}
+	
 }

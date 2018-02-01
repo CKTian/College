@@ -39,8 +39,7 @@
 		<select id="selectList" resultMap="courseList">
 			select c.id,c.name,c.time,t.name as tname 
 			from b_course c,b_teacher t 
-			where c.teacher_id = t.id 
-			and t.teacher_id = #{teacherId}
+			where c.teacher_id = t.id
 		</select>
 		
 		<!-- 查询登录老师所教的所有课名 -->

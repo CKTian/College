@@ -68,5 +68,14 @@ public class ChoosedServiceImpl implements ChoosedService {
 		List list = cdao.showChoosedCourseStu(courseId);
 		return list;
 	}
+	// 修改一位同学选的课的成绩
+	public void updateScore(List dataList) {
+		cdao.updateList(dataList);
+	}
+	// 查询一位同学的所有选课的成绩
+	public List showOwnStuChoosedScore(String userId) {
+		List list = cdao.showOwnStuChoosedScore(userId);
+		return list;
+	}
 
 }

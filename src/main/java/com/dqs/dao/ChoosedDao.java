@@ -14,4 +14,6 @@ public interface ChoosedDao {
 	public List selectOwnChoosed(String userId);// 多表联查
 	public List showStuCourse(String teamName);
 	public List showChoosedCourseStu(String courseId);
+	public void updateList(List dataList);// 多条语句一起更新
+	public List showOwnStuChoosedScore(String userId);
 }
