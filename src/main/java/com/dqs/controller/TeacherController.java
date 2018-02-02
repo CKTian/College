@@ -260,5 +260,23 @@ public class TeacherController {
 		List list = chs.showOwnStuChoosedScore(userId);
 		return list;
 	}
-	
+	/**
+	 * 
+	 * @Title: showTimeTable  
+	 * @Description: 展示老师所教课的课程表
+	 * @author 王天博
+	 * @param @param uid
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/showTimeTable.do")
+	@ResponseBody
+	public List showTimeTable(@RequestBody Object uid){
+		// 转换参数类型uid
+		Map UserIdMap = (Map) uid;
+		String userId = (String) UserIdMap.get("userId");
+		List list = cs.showTimeTable(userId);
+		System.out.println(list);
+		return list;
+	}
 }

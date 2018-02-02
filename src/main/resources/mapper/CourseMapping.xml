@@ -49,4 +49,12 @@
 			where c.teacher_id = t.id 
 			and t.user_id = #{teacherId}
 		</select>
+		
+		<!-- 查询登录老师所教的课的课表 -->
+		<select id="showTimeTable" parameterType="String" resultType="showTimeTableDto">
+			select c.id as courseId,c.name as courseName,c.time as courseTime
+			from b_teacher t,b_course c
+			where t.id = c.teacher_id
+			and t.user_id =#{userId}
+		</select>
 	</mapper>

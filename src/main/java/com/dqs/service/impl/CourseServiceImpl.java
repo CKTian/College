@@ -23,5 +23,10 @@ public class CourseServiceImpl implements CourseService {
 		List list = cdao.showTeachCourse(teacherId);
 		return list;
 	}
+	// 展示登录老师所教课程的课表
+	public List showTimeTable(String userId) {
+		List list = cdao.showTimeTable(userId);
+		return list;
+	}
 
 }

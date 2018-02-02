@@ -12,4 +12,5 @@ public interface CourseDao {
 	public Course selectOne();
 	public List<Course> selectList();
 	public List showTeachCourse(String teacherId);
+	public List showTimeTable(String userId);
 }

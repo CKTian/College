@@ -127,4 +127,25 @@ public class UserBasicInfo {
 		list.add(team_name);
 		return list;
 	}
+	/**
+	 * 
+	 * @Title: parseSuperInfo  
+	 * @Description: 解析超级管理员的个人信息
+	 * @author 王天博
+	 * @param @param loginMap
+	 * @param @param basicMap
+	 * @param @return      
+	 * @return List<UserBasicInfo>
+	 */
+	public static List<UserBasicInfo> parseSuperInfo(User userinfo) {
+		List list = new ArrayList();
+		// 放置到展示
+		UserBasicInfo name = new UserBasicInfo("姓名", "超级管理员");
+		UserBasicInfo account = new UserBasicInfo("用户名", userinfo.getAccount());
+		UserBasicInfo image = new UserBasicInfo("", "#icon-lingdao", "picture");
+		list.add(image);
+		list.add(account);
+		list.add(name);
+		return list;
+	}
 }

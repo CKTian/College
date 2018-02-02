@@ -31,7 +31,6 @@ public class LoginController {
 	public String userLogin(HttpServletRequest req, @RequestBody User user){
 		String account = user.getAccount();
 		User userinfo = us.selectOne(account);//查询出来的
-		System.out.println(userinfo);
 		Map map = new HashMap();
 		if(userinfo != null&&(userinfo.getPassword()).equals(user.getPassword())){
 			// 登录成功-->进行如下：
@@ -40,7 +39,7 @@ public class LoginController {
 			// 根据权限设置路由
 			String router = "";
 			if (roleId == 0){// 超级管理员
-				router = "";
+				router = "forward:/home/SuperController/getBasicInfo.do";
 			} else if (roleId == 1){// 老师
 				router = "forward:/home/TeacherController/getBasicInfo.do";
 			} else if (roleId == 2){// 学生

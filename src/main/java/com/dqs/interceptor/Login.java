@@ -61,7 +61,7 @@ public class Login implements HandlerInterceptor {
 				map.put("id", userinfo.getId());
 				map.put("password", claims.get("password"));//密码
 				map.put("role_id", claims.get("role_id"));//权限
-				map.put("gender", claims.get("gender"));//权限
+				map.put("gender", claims.get("gender"));//性别
 				map.put("time", claims.getExpiration());//过期时间
 				//判断token是否过期
 				Date date=new Date();//获取当前系统时间
@@ -83,7 +83,6 @@ public class Login implements HandlerInterceptor {
 					    out = response.getWriter();  
 					    out.append(res.toString());  
 						return false;
-						//response.sendRedirect("/ErrorController/sendError.do");
 					}
 				}else{
 					//过期

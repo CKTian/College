@@ -49,7 +49,15 @@ public class GetTokenController {
 		Map loginInfo = new HashMap();
 		loginInfo.put("userinfo", userInfo);
 		if((Integer)user.get("role_id") == 0){
-			
+			// 把超级管理员的信息放入进去
+			User user2 = new User();
+			user2.setId((String)user.get("id"));
+			user2.setAccount((String)user.get("account"));
+			user2.setRole_id((Integer)user.get("role_id"));
+			user2.setGender((Integer)user.get("gender"));
+			user2.setPassword((String)user.get("password"));
+			List list = UserBasicInfo.parseSuperInfo(user2);
+			map.put("basicInfoList", list);
 		} else if ((Integer)user.get("role_id") == 1){
 			// 查询老师基本信息
 			List listInfo = ts.selectOne((String)user.get("id"));
