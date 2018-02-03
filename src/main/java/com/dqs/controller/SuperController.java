@@ -1,5 +1,6 @@
 package com.dqs.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dqs.dto.ShowAllTeacherInfoDto;
 import com.dqs.entity.User;
+import com.dqs.service.TeacherService;
+import com.dqs.service.TeamService;
 import com.dqs.service.UserService;
 import com.dqs.util.Status;
 import com.dqs.util.UserBasicInfo;
@@ -22,6 +26,11 @@ import com.dqs.util.UserBasicInfo;
 public class SuperController {
 	@Autowired
 	private UserService us;
+	@Autowired
+	private TeacherService ts;
+	@Autowired
+	private TeamService tms;
+	
 	private Status status;
 	SuperController (){ // 只有在方法中才能new对象
 		status = new Status();
@@ -78,4 +87,62 @@ public class SuperController {
 		status.setMessage("修改成功");
 		return status;
 	}
+	/**
+	 * 
+	 * @Title: selectAllTeacherInfo  
+	 * @Description:超级管理员查看所有的老师
+	 * @author 王天博
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectAllTeacherInfo.do")
+	@ResponseBody
+	public List selectAllTeacherInfo() {
+		List list =ts.selectAllTeacherInfo(); 
+		System.out.println(list);
+		return list;
+	}
+	/**
+	 * 
+	 * @Title: selectAllTeamInfo  
+	 * @Description: 查询全部的班级
+	 * @author 王天博
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectAllTeamInfo.do")
+	@ResponseBody
+	public List selectAllTeamInfo(){
+		List list = tms.selectList();
+		return list;
+	}
+	/**
+	 * 
+	 * @Title: updateOneTeacher  
+	 * @Description: 修改一个老师的信息
+	 * @author 王天博
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/updateOneTeacher.do")
+	@ResponseBody
+	public Status updateOneTeacher(@RequestBody Object choosedInfo){
+		// 转换参数类型
+		Map choosed = (Map) choosedInfo;
+		Map info = (Map) choosed.get("info");
+		// 创建一个新对象
+		ShowAllTeacherInfoDto toUpdateInfo = new ShowAllTeacherInfoDto();
+		toUpdateInfo.setAccount((String)info.get("account"));
+		toUpdateInfo.setGender((Integer)info.get("gender"));
+		toUpdateInfo.setTeacherName((String)info.get("name"));
+		toUpdateInfo.setTeamId((String)info.get("teamName"));
+		toUpdateInfo.setUserId((String)info.get("userId"));
+		// 修改数据库中的信息
+		ts.updateOneTeacherInfo(toUpdateInfo);
+		//修改成功
+		status.setValue("1");
+		status.setMessage("修改成功哦~~");
+		return status;
+	}
+	
 }

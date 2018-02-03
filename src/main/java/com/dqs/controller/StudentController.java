@@ -242,7 +242,7 @@ public class StudentController {
 	/**
 	 * 
 	 * @Title: selectAllTeacher  
-	 * @Description: 查询全部老师的信息
+	 * @Description: 查询全部老师授课的信息
 	 * @author 王天博
 	 * @param @return      
 	 * @return List
@@ -250,7 +250,7 @@ public class StudentController {
 	@RequestMapping("/selectAllTeacher.do")
 	@ResponseBody
 	public List selectAllTeacher() {
-		List list = ts.selectAllTeacherInfo();
+		List list = ts.selectAllTeacherTeachInfo();
 		return list;
 	}
 }

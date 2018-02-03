@@ -23,6 +23,10 @@
 		<update id="updateGender" parameterType="User">
 			update s_user set gender=#{gender} where id =#{id}
 		</update>
+		<!-- 修改老师的用户名和性别 -->
+		<update id="updateOneAccountGender" parameterType="ShowAllTeacherInfoDto">
+			update s_user set gender=#{gender},account =#{account} where id =#{userId}
+		</update>
 		<!-- 根据用户名查询全部信息 -->
 		<select id="selectOne" resultType="User" parameterType="String">
 			select * from s_user where account =#{account}

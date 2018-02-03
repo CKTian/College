@@ -1,5 +1,7 @@
 package com.dqs.service;
 
-public interface TeamService {
+import java.util.List;
 
+public interface TeamService {
+	public List selectList();
 }

@@ -40,6 +40,11 @@
 			update b_teacher set team_id=#{team_id},name =#{name} where id=#{id}
 		</update>
 		
+		<!-- 讲一位老师的所带班级置空 -->
+		<update id="updateOneTeamId" parameterType="Teacher">
+			update b_teacher set team_id=#{team_id} where id=#{id}
+		</update>
+		
 		<!-- 根据编号查询全部信息 -->
 		<select id="selectOne" resultType="Teacher" parameterType="String">
 			select * from b_teacher where id =#{id}
@@ -50,19 +55,34 @@
 			select * from b_teacher 
 		</select>
 		
-		<!-- 查询全部老师的基本信息 -->
-		<select id="selectAllTeacherInfo" resultMap="teacherList">
+		<!-- 查询全部老师授课的基本信息 -->
+		<select id="selectAllTeacherTeachInfo" resultMap="teacherList">
 			select t.name,team.name as tname,c.name as cname
 			from b_teacher t,b_team team, b_course c
 			where t.team_id=team.id
 			and t.id = c.teacher_id
 		</select>
 		
-		<!-- 查询老师的信息 -->
+		<!-- 查询登录老师的信息 -->
 		<select id="selectOneBasicInfo" resultMap="forTeamName" parameterType="String">
 			select team.name as tname, teacher.name, teacher.id
 			from b_teacher teacher,b_team team 
 			where user_id = #{user_id}
 			and teacher.team_id = team.id
+		</select>
+		
+		<!-- 查询全部老师的基本信息 -->
+		<select id="selectAllTeacherInfo" resultType="ShowAllTeacherInfoDto">
+			select t.id as teamId, tc.name as teacherName,t.name as teamName,u.gender as gender ,u.account as account,u.id as userId
+			from b_teacher tc,b_team t ,s_user u
+			where tc.user_id = u.id
+			and tc.team_id = t.id
+		</select>
+		
+		<!-- 根据班级id查询老师id -->
+		<select id="selectTeacherId" resultType="String" parameterType="String">
+			select id 
+			from b_teacher
+			where team_id = #{choosedteamId}
 		</select>
 	</mapper>

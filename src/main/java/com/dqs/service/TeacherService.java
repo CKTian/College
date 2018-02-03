@@ -3,6 +3,7 @@ package com.dqs.service;
 import java.util.List;
 import java.util.Map;
 
+import com.dqs.dto.ShowAllTeacherInfoDto;
 import com.dqs.entity.Teacher;
 
 public interface TeacherService {
@@ -13,5 +14,9 @@ public interface TeacherService {
 
 	public List selectOne(String id);
 	
+	public List selectAllTeacherTeachInfo();
+
 	public List selectAllTeacherInfo();
+	
+	public void updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo);
 }

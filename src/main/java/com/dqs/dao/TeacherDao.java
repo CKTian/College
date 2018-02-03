@@ -9,8 +9,11 @@ public interface TeacherDao {
 	public void insertOne();
 	public void deleteOne(String id);
 	public void updateOne();
+	public void updateOneTeamId(Teacher teacher);
 	public Map selectOne(String id);
 	public List<Teacher> selectList();
-	public List selectAllTeacherInfo();
+	public List selectAllTeacherTeachInfo();
 	public List selectOneBasicInfo(String id);
+	public List selectAllTeacherInfo();
+	public String selectTeacherId(String choosedteamId);
 }
