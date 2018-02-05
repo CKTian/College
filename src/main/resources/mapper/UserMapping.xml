@@ -4,6 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<!-- 目的：为dao接口方法提供sql语句配置 -->
 	<mapper namespace="com.dqs.dao.UserDao">
+		<!-- 检查是否含有该account -->
+		<select id="checkAccount" parameterType="String" resultType="Integer">
+			select count(*) from s_user where account =#{account}
+		</select>
 		<!-- 增加一条用户信息 -->
 		<insert id="insertOne" parameterType="User">
 			insert into s_user values(#{id},#{account},#{password},#{role_id},#{gender})
@@ -11,7 +15,7 @@
 		
 		<!-- 根据用户编号删除一条信息 -->
 		<delete id="deleteOne" parameterType="String">
-			delete from s_user where id=#{id}
+			delete from s_user where id=#{userId}
 		</delete>
 		
 		<!-- 根据用户编号修改自己的密码 -->

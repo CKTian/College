@@ -10,7 +10,7 @@ public interface TeacherService {
 
 	public List<Teacher> selectList();
 
-	public void deleteOne(String id);
+	public void deleteOneTeacher(String userId);
 
 	public List selectOne(String id);
 	
@@ -19,4 +19,6 @@ public interface TeacherService {
 	public List selectAllTeacherInfo();
 	
 	public void updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo);
+	
+	public int inserOneTeacher(ShowAllTeacherInfoDto toUpdateInfo);
 }

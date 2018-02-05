@@ -133,7 +133,7 @@ public class SuperController {
 		// 创建一个新对象
 		ShowAllTeacherInfoDto toUpdateInfo = new ShowAllTeacherInfoDto();
 		toUpdateInfo.setAccount((String)info.get("account"));
-		toUpdateInfo.setGender((Integer)info.get("gender"));
+		toUpdateInfo.setGender((Integer) info.get("gender"));
 		toUpdateInfo.setTeacherName((String)info.get("name"));
 		toUpdateInfo.setTeamId((String)info.get("teamName"));
 		toUpdateInfo.setUserId((String)info.get("userId"));
@@ -142,6 +142,55 @@ public class SuperController {
 		//修改成功
 		status.setValue("1");
 		status.setMessage("修改成功哦~~");
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: insertTeacher  
+	 * @Description: 增加一位老师
+	 * @author 王天博
+	 * @param @param choosedInfo
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/insertTeacher.do")
+	@ResponseBody
+	public Status insertTeacher(@RequestBody Object newInfo){
+		// 转换参数类型
+		Map news = (Map) newInfo;
+		Map info = (Map) news.get("info");
+		System.out.println(info);
+		// 创建一个新对象
+		ShowAllTeacherInfoDto toUpdateInfo = new ShowAllTeacherInfoDto();
+		toUpdateInfo.setAccount((String)info.get("account"));
+		String sex = (String)info.get("gender");
+		Integer gender = Integer.valueOf(sex);
+		toUpdateInfo.setGender(gender);
+		toUpdateInfo.setTeacherName((String)info.get("name"));
+		toUpdateInfo.setTeamId((String)info.get("teamName"));
+		toUpdateInfo.setUserId((String)info.get("userId"));
+		// 将新增的老师的信息插入到数据库中
+		int flag = ts.inserOneTeacher(toUpdateInfo);
+		if(flag !=0 ){
+			// 插入失败
+			status.setValue("0");
+			status.setMessage("用户名重复！请重新填写");
+		}else {
+			//插入成功
+			status.setValue("1");
+			status.setMessage("添加成功哦~~");
+		}
+		return status;
+	}
+	@RequestMapping("/deleteTeacher.do")
+	@ResponseBody
+	public Status deleteTeacher(@RequestBody Object info){
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		String userId = (String) infoMap.get("userId");
+		ts.deleteOneTeacher(userId);
+		status.setValue("1");
+		status.setMessage("删除成功哦~~");
 		return status;
 	}
 	

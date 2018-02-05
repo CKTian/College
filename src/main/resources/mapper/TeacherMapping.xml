@@ -30,9 +30,9 @@
 			insert into b_teacher values(#{id},#{team_id},#{name},#{user_id})
 		</insert>
 		
-		<!-- 根据编号删除一条信息 -->
-		<delete id="deleteOne" parameterType="String">
-			delete from b_teacher where id=#{id}
+		<!-- 根据编号删除一条老师信息 -->
+		<delete id="deleteOneTeacher" parameterType="String">
+			delete from b_teacher where id=#{teacherId}
 		</delete>
 		
 		<!-- 根据编号修改一条信息 -->
@@ -43,6 +43,11 @@
 		<!-- 讲一位老师的所带班级置空 -->
 		<update id="updateOneTeamId" parameterType="Teacher">
 			update b_teacher set team_id=#{team_id} where id=#{id}
+		</update>
+		
+		<!-- 修改以为老师的姓名和所带班级 -->
+		<update id="updateNameTeam" parameterType="ShowAllTeacherInfoDto">
+			update b_teacher set name =#{teacherName},team_id=#{teamId} where user_id =#{userId}
 		</update>
 		
 		<!-- 根据编号查询全部信息 -->
@@ -77,6 +82,7 @@
 			from b_teacher tc,b_team t ,s_user u
 			where tc.user_id = u.id
 			and tc.team_id = t.id
+			order by account
 		</select>
 		
 		<!-- 根据班级id查询老师id -->
@@ -84,5 +90,11 @@
 			select id 
 			from b_teacher
 			where team_id = #{choosedteamId}
+		</select>
+		<!-- 根据用户id查询老师id -->
+		<select id="selectTeacherIdWithUserId" resultType="String" parameterType="String">
+			select id 
+			from b_teacher
+			where user_id = #{userId}
 		</select>
 	</mapper>

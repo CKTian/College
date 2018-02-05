@@ -13,4 +13,6 @@ public interface CourseDao {
 	public List<Course> selectList();
 	public List showTeachCourse(String teacherId);
 	public List showTimeTable(String userId);
+	public List selectTeachCourse(String userId);
+	public void updateTeacherId(String courseId);
 }
