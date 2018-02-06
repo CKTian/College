@@ -21,4 +21,6 @@ public interface TeacherService {
 	public void updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo);
 	
 	public int inserOneTeacher(ShowAllTeacherInfoDto toUpdateInfo);
+	
+	public String selectTeacherId(String userId);
 }

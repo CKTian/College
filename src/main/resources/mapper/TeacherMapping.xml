@@ -78,7 +78,7 @@
 		
 		<!-- 查询全部老师的基本信息 -->
 		<select id="selectAllTeacherInfo" resultType="ShowAllTeacherInfoDto">
-			select t.id as teamId, tc.name as teacherName,t.name as teamName,u.gender as gender ,u.account as account,u.id as userId
+			select t.id as teamId, tc.name as teacherName,tc.id as teacherId ,t.name as teamName,u.gender as gender ,u.account as account,u.id as userId
 			from b_teacher tc,b_team t ,s_user u
 			where tc.user_id = u.id
 			and tc.team_id = t.id

@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dqs.dto.ShowAllTeacherInfoDto;
+import com.dqs.entity.Course;
 import com.dqs.entity.User;
+import com.dqs.service.CourseService;
 import com.dqs.service.TeacherService;
 import com.dqs.service.TeamService;
 import com.dqs.service.UserService;
@@ -30,6 +32,8 @@ public class SuperController {
 	private TeacherService ts;
 	@Autowired
 	private TeamService tms;
+	@Autowired
+	private CourseService cs;
 	
 	private Status status;
 	SuperController (){ // 只有在方法中才能new对象
@@ -56,7 +60,6 @@ public class SuperController {
 		loginMap.put("basicInfoList", list);
 		return loginMap;
 	}
-	
 	/**
 	 * 
 	 * @Title: updatePwd  
@@ -99,7 +102,7 @@ public class SuperController {
 	@ResponseBody
 	public List selectAllTeacherInfo() {
 		List list =ts.selectAllTeacherInfo(); 
-		System.out.println(list);
+		System.out.println("测试"+list);
 		return list;
 	}
 	/**
@@ -182,7 +185,7 @@ public class SuperController {
 		}
 		return status;
 	}
-	@RequestMapping("/deleteTeacher.do")
+	@RequestMapping("/deleteselectAllTeacherInfoTeacher.do")
 	@ResponseBody
 	public Status deleteTeacher(@RequestBody Object info){
 		// 转换参数类型
@@ -193,5 +196,68 @@ public class SuperController {
 		status.setMessage("删除成功哦~~");
 		return status;
 	}
-	
+	/**
+	 * 
+	 * @Title: updateOneCourse  
+	 * @Description: 修改一条课程信息
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/updateOneCourse.do")
+	@ResponseBody
+	public Status updateOneCourse(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		Map forUpdateInfo = (Map) infoMap.get("info");
+//		// 获取选中老师的userid
+//		String userId = (String)forUpdateInfo.get("userId");
+//		// 通过userid 查询teacherid
+//		String teacherId = ts.selectTeacherId(userId);
+		// 创建一个新的对象
+		Course course = new Course();
+		course.setId((String)forUpdateInfo.get("courseId"));
+		course.setName((String)forUpdateInfo.get("courseName"));
+		course.setTname((String)forUpdateInfo.get("teacherName"));
+		course.setTeacher_id((String)forUpdateInfo.get("teacherId"));
+		course.setTime((String)forUpdateInfo.get("time"));
+		// 去数据库修改
+		int result = cs.updateOneCourse(course);
+		//判断状态值
+		if (result == 0){ 
+			status.setValue("0");
+			status.setMessage("改上课时间已经有课哦~请重新选课");
+		} else if (result == 1) {
+			status.setValue("1");
+			status.setMessage("修改成功！");
+		}
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: insertOneCourse  
+	 * @Description: 增加一门课程信息
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/insertOneCourse.do")
+	@ResponseBody
+	public Status insertOneCourse(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		Map forInsertInfo = (Map) infoMap.get("info");
+		// 创建一个新的对象
+		Course course = new Course();
+		course.setId((String)forInsertInfo.get("courseId"));
+		course.setName((String)forInsertInfo.get("courseName"));
+		course.setTname((String)forInsertInfo.get("teacherName"));
+		course.setTeacher_id((String)forInsertInfo.get("teacherId"));
+		course.setTime((String)forInsertInfo.get("time"));
+		// 去数据库修改
+		cs.insertOneCourse(course);
+		return status;
+	}
 }

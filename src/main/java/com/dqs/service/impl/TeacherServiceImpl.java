@@ -125,5 +125,11 @@ public class TeacherServiceImpl implements TeacherService {
 			return count;
 		}
 	}
+	/**
+	 * 根据老师id 查询teacherid
+	 */
+	public String selectTeacherId(String userId) {
+		return tdao.selectTeacherIdWithUserId(userId);
+	}
 
 }

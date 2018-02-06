@@ -26,7 +26,7 @@
 		</delete>
 		
 		<!-- 根据编号修改一条信息 -->
-		<update id="updateOne" parameterType="Course">
+		<update id="updateOneCourse" parameterType="Course">
 			update b_course set name=#{name},teacher_id =#{teacher_id} ,time=#{time} where id=#{id}
 		</update>
 		
@@ -42,7 +42,7 @@
 		
 		<!-- 查询全部课程 信息 -->
 		<select id="selectList" resultMap="courseList">
-			select c.id,c.name,c.time,t.name as tname 
+			select c.id,c.teacher_id,c.name,c.time,t.name as tname 
 			from b_course c,b_teacher t 
 			where c.teacher_id = t.id
 		</select>
@@ -65,7 +65,7 @@
 		
 		<!-- 查询该老师所教的所有课程id -->
 		<select id="selectTeachCourse" parameterType="String" resultType="Course">
-			select id
+			select id,time
 			from b_course
 			where teacher_id = #{teacherId}
 		</select>

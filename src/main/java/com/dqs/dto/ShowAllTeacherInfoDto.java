@@ -1,6 +1,7 @@
 package com.dqs.dto;
 
 public class ShowAllTeacherInfoDto {
+	private String teacherId;
 	private String userId;
 	private String teamId;
 	private String teacherName;
@@ -43,16 +44,24 @@ public class ShowAllTeacherInfoDto {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public String getTeacherId() {
+		return teacherId;
+	}
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
+	}
 	
 	@Override
 	public String toString() {
-		return "ShowAllTeacherInfoDto [userId=" + userId + ", teamId=" + teamId + ", teacherName=" + teacherName
-				+ ", teamName=" + teamName + ", gender=" + gender + ", account=" + account + "]";
+		return "ShowAllTeacherInfoDto [teacherId=" + teacherId + ", userId=" + userId + ", teamId=" + teamId
+				+ ", teacherName=" + teacherName + ", teamName=" + teamName + ", gender=" + gender + ", account="
+				+ account + "]";
 	}
 	
-	public ShowAllTeacherInfoDto(String userId, String teamId, String teacherName, String teamName, Integer gender,
-			String account) {
+	public ShowAllTeacherInfoDto(String teacherId, String userId, String teamId, String teacherName, String teamName,
+			Integer gender, String account) {
 		super();
+		this.teacherId = teacherId;
 		this.userId = userId;
 		this.teamId = teamId;
 		this.teacherName = teacherName;
