@@ -57,7 +57,7 @@
 			update b_choosed_course set course_id=#{course_id},score =#{score} where id=#{id}
 		</update>
 		
-		<!-- 修改多条数据 -->
+		<!-- 修改多条数据的成绩 -->
 		<update id="updateList" parameterType="List">
 			<foreach collection="list" item="item" index="index" separator=";">
 				update b_choosed_course
@@ -67,7 +67,13 @@
 				where id = #{item.id,jdbcType=CHAR}
 			</foreach>
 		</update>
-		
+		<!-- 修改多条数据的课程号 -->
+		<update id="deleteChoosedCourseId" parameterType="List">
+			<foreach collection="list" item="item" index="index" separator=";">
+				delete from b_choosed_course
+				where id = #{item.id,jdbcType=CHAR}
+			</foreach>
+		</update>
 		<!-- 查询登录者的所有选的课的id -->
 		<select id="selectOwnCourse" resultType="Choosed" parameterType="String">
 			select course_id from b_choosed_course where user_id =#{userId}
@@ -114,5 +120,12 @@
 			from b_choosed_course cc,b_course c
 			where cc.course_id = c.id
 			and cc.user_id = #{userId}
+		</select>
+		
+		<!-- 查询选择了该课程的全部选课id -->
+		<select id="selectChoosedId" parameterType="String" resultType="Choosed">
+			select id
+			from b_choosed_course
+			where course_id = #{courseId}
 		</select>
 	</mapper>

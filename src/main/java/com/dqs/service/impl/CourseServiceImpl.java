@@ -6,14 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dqs.dao.ChoosedDao;
 import com.dqs.dao.CourseDao;
 import com.dqs.entity.Course;
 import com.dqs.service.CourseService;
+import com.dqs.util.CreateUUID;
 @Service
 @Transactional
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	private CourseDao cdao;
+	@Autowired
+	private ChoosedDao chdao;
 	/**
 	 * 查询全部的课程信息
 	 */
@@ -63,12 +67,55 @@ public class CourseServiceImpl implements CourseService {
 	/**
 	 * 增加一个课程信息
 	 */
-	public void insertOneCourse(Course course) {
+	public int insertOneCourse(Course course) {
+		String teacherId = course.getTeacher_id();
+		String courseName = course.getName();
+		String teachTime = course.getTime();
+		boolean isHadSameName = false;
+		boolean isHadSameTime = false;
 		//根据教师id查询他教过得课
+		List list = cdao.selectTeachCourse(teacherId);
 		// 判断是否教过 --如果教过--提示课程冲突
-		// 没教过继续判断
-		// 判断该老师 当前时间是否有课 -- 有课--提示时间冲突
-		// 设置课程号自增--插入数据库
+		for (int i= 0;i<list.size();i++){
+			Course listMap = (Course) list.get(i);
+			String cName = listMap.getName();
+			String tTime = listMap.getTime();
+			if (teachTime.equals(tTime)){
+				isHadSameTime = true;
+			}
+			if(courseName.equals(cName)){
+				isHadSameName = true;
+			}
+		}
+		// --如果教过--提示课程冲突
+		if (isHadSameName) {
+			return 0;
+		}else {
+			// 没教过继续判断
+			// 判断该老师 当前时间是否有课 -- 有课--提示时间冲突
+			if(isHadSameTime){
+				return 2;
+			}else{
+				// 设置课程号自增--插入数据库
+				String courseId = CreateUUID.getUUID();
+				course.setId(courseId);
+				cdao.insertOne(course);
+				return 1;
+			}
+		}
+	}
+	/**
+	 * 删除一门课程
+	 */
+	public void deleteOneCourse(String courseId) {
+		// 查询出选了该课程的 选课id
+		List list = chdao.selectChoosedId(courseId);
+		if (list.size()!= 0){
+			// 将查询出的选课中的 课程号 都删除
+			chdao.deleteChoosedCourseId(list);
+		}
+		//删除该课程
+		cdao.deleteOne(courseId);
 	}
 
 }

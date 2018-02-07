@@ -10,6 +10,7 @@ public interface CourseService {
 	public List showTeachCourse(String teacherId);
 	public List showTimeTable(String userId);
 	public int updateOneCourse(Course course);
-	public void insertOneCourse(Course course);
+	public int insertOneCourse(Course course);
+	public void deleteOneCourse(String courseId);
 
 }

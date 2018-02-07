@@ -185,12 +185,22 @@ public class SuperController {
 		}
 		return status;
 	}
-	@RequestMapping("/deleteselectAllTeacherInfoTeacher.do")
+	/**
+	 * 
+	 * @Title: deleteTeacher  
+	 * @Description: 删除一个老师
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/deleteTeacher.do")
 	@ResponseBody
 	public Status deleteTeacher(@RequestBody Object info){
 		// 转换参数类型
 		Map infoMap = (Map) info;
 		String userId = (String) infoMap.get("userId");
+		// 操作数据库
 		ts.deleteOneTeacher(userId);
 		status.setValue("1");
 		status.setMessage("删除成功哦~~");
@@ -256,8 +266,40 @@ public class SuperController {
 		course.setTname((String)forInsertInfo.get("teacherName"));
 		course.setTeacher_id((String)forInsertInfo.get("teacherId"));
 		course.setTime((String)forInsertInfo.get("time"));
-		// 去数据库修改
-		cs.insertOneCourse(course);
+		// 去数据库增加
+		int result = cs.insertOneCourse(course);
+		if(result == 0){
+			status.setValue("0");
+			status.setMessage("当前老师已经开设该课程了哦~");
+		}else if(result == 2){
+			status.setValue("0");
+			status.setMessage("当前老师在该时间有课哦~");
+		}else if (result == 1){
+			status.setValue("1");
+			status.setMessage("添加成功");
+		}
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: deleteOneCourse  
+	 * @Description: 删除一条课程
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/deleteOneCourse.do")
+	@ResponseBody
+	public Status deleteOneCourse(@RequestBody Object info){
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		String courseId = (String) infoMap.get("info");
+		// 操作数据库
+		cs.deleteOneCourse(courseId);
+		//删除成功
+		status.setValue("1");
+		status.setMessage("删除成功！");
 		return status;
 	}
 }

@@ -22,7 +22,7 @@
 		
 		<!-- 根据编号删除一条信息 -->
 		<delete id="deleteOne" parameterType="String">
-			delete from b_course where id=#{id}
+			delete from b_course where id=#{courseId}
 		</delete>
 		
 		<!-- 根据编号修改一条信息 -->
@@ -65,7 +65,7 @@
 		
 		<!-- 查询该老师所教的所有课程id -->
 		<select id="selectTeachCourse" parameterType="String" resultType="Course">
-			select id,time
+			select id,time,name
 			from b_course
 			where teacher_id = #{teacherId}
 		</select>
