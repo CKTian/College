@@ -15,8 +15,8 @@
 		</delete>
 		
 		<!-- 根据编号修改一条信息 -->
-		<update id="updateOne" parameterType="Team">
-			update b_team set name=#{name} where id=#{id}
+		<update id="updateOne" parameterType="ShowAllTeamDto">
+			update b_team set name=#{teamName} where id=#{teamId}
 		</update>
 		
 		<!-- 根据编号查询全部信息 -->
@@ -27,5 +27,15 @@
 		<!-- 查询全部信息 -->
 		<select id="selectList" resultType="Team" >
 			select * from b_team 
+		</select>
+		
+		<!-- 查询全部的班级的信息 -->
+		<select id="selectAllTeam" resultType="ShowAllTeamDto">
+			select tm.id as teamId, tm.name as teamName,tch.name as teacherName,tch.id as teacherId,count(s.id) as countStu
+			from b_team tm
+			LEFT JOIN   b_teacher tch ON tm.id = tch.team_id
+			LEFT JOIN   b_student s ON tm.id = s.team_id
+			group by tm.id
+			having tm.id != '0000'
 		</select>
 	</mapper>

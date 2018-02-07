@@ -52,4 +52,10 @@
 			and s.user_id = u.id
 			and t.name=#{teamName}
 		</select>
+		<!-- 查询一个班级的所有学生 -->
+		<select id="selectTeamStus" parameterType="String" resultType="Student">
+			select id,name
+			from b_student
+			where team_id = #{teamId}
+		</select>
 	</mapper>

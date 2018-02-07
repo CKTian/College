@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dqs.dto.ShowAllTeacherInfoDto;
+import com.dqs.dto.ShowAllTeamDto;
 import com.dqs.entity.Course;
+import com.dqs.entity.Team;
 import com.dqs.entity.User;
 import com.dqs.service.CourseService;
+import com.dqs.service.StudentService;
 import com.dqs.service.TeacherService;
 import com.dqs.service.TeamService;
 import com.dqs.service.UserService;
@@ -34,6 +37,8 @@ public class SuperController {
 	private TeamService tms;
 	@Autowired
 	private CourseService cs;
+	@Autowired
+	private StudentService ss;
 	
 	private Status status;
 	SuperController (){ // 只有在方法中才能new对象
@@ -300,6 +305,66 @@ public class SuperController {
 		//删除成功
 		status.setValue("1");
 		status.setMessage("删除成功！");
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: selectAllTeam  
+	 * @Description: 查询全部的班级
+	 * @author 王天博
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectAllTeam.do")
+	@ResponseBody
+	public List selectAllTeam(){
+		List list = tms.selectAllTeam();
+		return list;
+	}
+	/**
+	 * 
+	 * @Title: selectTeamStus  
+	 * @Description: 查询一个班级的全部学生名字
+	 * @author 王天博
+	 * @param @param choosed
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectTeamStus.do")
+	@ResponseBody
+	public List selectTeamStus(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		String teamId = (String) infoMap.get("info");
+		//查询数据库
+		List list = ss.selectTeamStus(teamId);
+		return list;
+	}
+	/**
+	 * 
+	 * @Title: updateOneTeam  
+	 * @Description: 修改一个班级的信息
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/updateOneTeam.do")
+	@ResponseBody
+	public Status updateOneTeam(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		Map forUpdateInfo = (Map) infoMap.get("info");
+		// 创建一个新的对象
+		ShowAllTeamDto updateInfo = new ShowAllTeamDto();
+		updateInfo.setTeacherId((String)forUpdateInfo.get("teacherId"));
+		updateInfo.setTeamId((String)forUpdateInfo.get("teamId"));
+		updateInfo.setTeamName((String)forUpdateInfo.get("teamName"));
+		// 操作数据库
+		tms.updateOneTeam(updateInfo);
+		// 设置状态
+		status.setValue("1");
+		status.setMessage("修改成功");
 		return status;
 	}
 }

@@ -38,16 +38,22 @@ public class StudentServiceImpl implements StudentService {
 		map.put("team_name", team_name);
 		return map;
 	}
-	//修改个人电话信息
+	/**
+	 * 修改个人电话信息
+	 */
 	public void updateTel(Student student) {
 		sdao.updateTel(student);
 	}
-	//查询老师所带班级的所有学生的信息
+	/**
+	 * 查询老师所带班级的所有学生的信息
+	 */
 	public List selectOwnStuList(String teamName) {
 		List list = sdao.selectOwnStuList(teamName);
 		return list;
 	}
-	// 老师修改一个所带学生的信息
+	/**
+	 * 老师修改一个所带学生的信息
+	 */
 	public void updateOne(Student student) {
 		System.out.println(student);
 		// 修改学生表
@@ -57,5 +63,11 @@ public class StudentServiceImpl implements StudentService {
 		user.setId(student.getUser_id());
 		user.setGender(student.getGender());
 		udao.updateGender(user);
+	}
+	/**
+	 * 查询一个班级的所有学生名字
+	 */
+	public List selectTeamStus(String teamId) {
+		return sdao.selectTeamStus(teamId);
 	}
 }

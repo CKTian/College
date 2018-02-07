@@ -13,4 +13,5 @@ public interface StudentDao {
 	public void updateTel(Student student);
 	public List selectOwnStuList(String teamName);
 	public List showStuCourse(String teamName);
+	public List selectTeamStus(String teamId);
 }

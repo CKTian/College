@@ -40,7 +40,7 @@
 			update b_teacher set team_id=#{team_id},name =#{name} where id=#{id}
 		</update>
 		
-		<!-- 讲一位老师的所带班级置空 -->
+		<!-- 讲一位老师的所带班级修改 -->
 		<update id="updateOneTeamId" parameterType="Teacher">
 			update b_teacher set team_id=#{team_id} where id=#{id}
 		</update>

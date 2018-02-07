@@ -12,4 +12,5 @@ public interface StudentService {
 	public void updateTel(Student student);
 	public List selectOwnStuList(String teamName);
 	public void updateOne(Student student);
+	public List selectTeamStus(String teamId);
 }
