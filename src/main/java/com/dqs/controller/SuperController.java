@@ -361,10 +361,63 @@ public class SuperController {
 		updateInfo.setTeamId((String)forUpdateInfo.get("teamId"));
 		updateInfo.setTeamName((String)forUpdateInfo.get("teamName"));
 		// 操作数据库
-		tms.updateOneTeam(updateInfo);
+		int result = tms.updateOneTeam(updateInfo);
 		// 设置状态
+		if (result == 0) {
+			status.setValue("0");
+			status.setMessage("该班级重名了哦~");
+		}else if (result == 1){
+			status.setValue("1");
+			status.setMessage("修改成功");
+		}
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: insertOneTeam  
+	 * @Description: 增加一个班级信息
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/insertOneTeam.do")
+	@ResponseBody
+	public Status insertOneTeam(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		Map forInsertInfo = (Map) infoMap.get("info");
+		String teamName = (String)forInsertInfo.get("teamName");
+		// 操作数据库
+		int result = tms.insertOneTeam(teamName);
+		if (result == 0){
+			status.setValue("0");
+			status.setMessage("班级名重复了哦~");
+		}else if (result == 1){
+			status.setValue("1");
+			status.setMessage("添加班级成功了哦~");
+		}
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: deleteOneTeam  
+	 * @Description: 删除一条班级信息
+	 * @author 王天博
+	 * @param @param info
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/deleteOneTeam.do")
+	@ResponseBody
+	public Status deleteOneTeam(@RequestBody Object info) {
+		// 转换参数类型
+		Map infoMap = (Map) info;
+		Map forDeleteInfo = (Map) infoMap.get("info");
+		// 操作数据库
+		tms.deleteOneTeam(forDeleteInfo);
 		status.setValue("1");
-		status.setMessage("修改成功");
+		status.setMessage("删除成功哦~");
 		return status;
 	}
 }
