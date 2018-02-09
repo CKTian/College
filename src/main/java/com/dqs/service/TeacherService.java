@@ -18,7 +18,7 @@ public interface TeacherService {
 
 	public List selectAllTeacherInfo();
 	
-	public void updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo);
+	public int updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo);
 	
 	public int inserOneTeacher(ShowAllTeacherInfoDto toUpdateInfo);
 	

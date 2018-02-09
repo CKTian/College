@@ -14,6 +14,11 @@
 			<result property="point" column="point"/>
 			<association property="user" javaType="User">
 				<result property="gender" column="gender"/>
+				<result property="account" column="account"/>
+			</association>
+			<association property="team" javaType="Team">
+				<result property="id" column="tid"/>
+				<result property="name" column="tname"/>
 			</association>
 		</resultMap>
 		
@@ -29,7 +34,7 @@
 		
 		<!-- 根据用户编号修改一个信息 -->
 		<update id="updateOne" parameterType="Student">
-			update b_student set name=#{name},tel=#{tel},reward=#{reward},point=#{point}where user_id=#{user_id}
+			update b_student set team_id=#{team_id},name=#{name},tel=#{tel},reward=#{reward},point=#{point} where user_id=#{user_id}
 		</update>
 		<!-- 根据id修改一个人的电话信息 -->
 		<update id="updateTel" parameterType="Student">
@@ -51,6 +56,13 @@
 			where t.id = s.team_id
 			and s.user_id = u.id
 			and t.name=#{teamName}
+		</select>
+		<!-- 查询全部的同学 -->
+		<select id="selectAllStuList" resultMap="studentList">
+			select s.*,u.gender,t.name as tname,t.id as tid,u.account
+			from b_student s ,b_team t , s_user u
+			where t.id = s.team_id
+			and s.user_id = u.id
 		</select>
 		<!-- 查询一个班级的所有学生 -->
 		<select id="selectTeamStus" parameterType="String" resultType="Student">

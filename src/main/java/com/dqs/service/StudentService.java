@@ -10,7 +10,9 @@ public interface StudentService {
 	public List<Student> selectList(String user_id);
 	public Map selectOne(String user_id);
 	public void updateTel(Student student);
-	public List selectOwnStuList(String teamName);
-	public void updateOne(Student student);
+	public List selectOwnStuList(String teamName);// 学生
+	public List selectAllStuList();// 超级管理员
+	public int updateOne(Student student);
 	public List selectTeamStus(String teamId);
+	public int insertOneStu(Map info);
 }

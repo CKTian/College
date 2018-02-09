@@ -14,6 +14,6 @@ public interface UserDao {
 	public List<User> selectList();
 	public List<User> selectWithRole(String role_id);
 	public void updateOnePwd(User user);
-	public void updateGender(User user);
+	public void updateGenderAccount(User user);
 	public Integer checkAccount(String accoount);
 }

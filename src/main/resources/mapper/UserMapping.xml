@@ -24,8 +24,8 @@
 		</update>
 		
 		<!-- 根据编号修改自己的性别 -->
-		<update id="updateGender" parameterType="User">
-			update s_user set gender=#{gender} where id =#{id}
+		<update id="updateGenderAccount" parameterType="User">
+			update s_user set gender=#{gender},account=#{account} where id =#{id}
 		</update>
 		<!-- 修改老师的用户名和性别 -->
 		<update id="updateOneAccountGender" parameterType="ShowAllTeacherInfoDto">

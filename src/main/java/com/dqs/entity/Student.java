@@ -15,10 +15,15 @@ public class Student {
 	private String point   ; //绩点
 	
 	private User user;//设置一对一的关系
+	private String account;
 	private Integer gender;// 设置显示性别
 	
 	private Course course;//设置学生表 和课程表一对多
 	private String cname;//设置显示课程名称
+	
+	private Team team;
+	private String tid;
+	private String tname;
 	
 	public String getId() {
 		return id;
@@ -87,16 +92,35 @@ public class Student {
 	public void setCname(String cname) {
 		this.cname = cname;
 	}
+	public Team getTeam() {
+		return team;
+	}
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
+	public String getTid() {
+		return tid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
 	
-	@Override
-	public String toString() {
-		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", tel=" + tel
-				+ ", reward=" + reward + ", point=" + point + ", user=" + user + ", gender=" + gender + ", course="
-				+ course + ", cname=" + cname + "]";
+	public String getAccount() {
+		return account;
+	}
+	public void setAccount(String account) {
+		this.account = account;
 	}
 	
 	public Student(String id, String user_id, String name, String team_id, String tel, String reward, String point,
-			User user, Integer gender, Course course, String cname) {
+			User user, String account, Integer gender, Course course, String cname, Team team, String tid,
+			String tname) {
 		super();
 		this.id = id;
 		this.user_id = user_id;
@@ -106,13 +130,25 @@ public class Student {
 		this.reward = reward;
 		this.point = point;
 		this.user = user;
+		this.account = account;
 		this.gender = gender;
 		this.course = course;
 		this.cname = cname;
+		this.team = team;
+		this.tid = tid;
+		this.tname = tname;
+	}
+	@Override
+	public String toString() {
+		return "Student [id=" + id + ", user_id=" + user_id + ", name=" + name + ", team_id=" + team_id + ", tel=" + tel
+				+ ", reward=" + reward + ", point=" + point + ", user=" + user + ", account=" + account + ", gender="
+				+ gender + ", course=" + course + ", cname=" + cname + ", team=" + team + ", tid=" + tid + ", tname="
+				+ tname + "]";
 	}
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 }

@@ -154,14 +154,23 @@ public class TeacherController {
 		System.out.println(list);
 		return list;
 	}
-	
+	/**
+	 * 
+	 * @Title: toUpdateStuInfo  
+	 * @Description: 修改一个学生的信息
+	 * @author 王天博
+	 * @param @param formInfo
+	 * @param @return      
+	 * @return Status
+	 */
 	@RequestMapping("/toUpdateStuInfo.do")
 	@ResponseBody
 	public Status toUpdateStuInfo(@RequestBody Object formInfo){
 		Map Info = (Map) formInfo;
 		Map newInfo = (Map) Info.get("form");
 		Student student = new Student();
-		student.setUser_id((String)Info.get("id"));
+		student.setUser_id((String)newInfo.get("id"));
+		student.setTeam_id((String)Info.get("teamId"));
 		student.setName((String)newInfo.get("name"));
 		student.setGender((Integer)newInfo.get("gender"));
 		student.setTel((String)newInfo.get("tel"));

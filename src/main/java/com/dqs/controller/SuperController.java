@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dqs.dto.ShowAllTeacherInfoDto;
 import com.dqs.dto.ShowAllTeamDto;
 import com.dqs.entity.Course;
+import com.dqs.entity.Student;
 import com.dqs.entity.Team;
 import com.dqs.entity.User;
 import com.dqs.service.CourseService;
@@ -143,13 +144,19 @@ public class SuperController {
 		toUpdateInfo.setAccount((String)info.get("account"));
 		toUpdateInfo.setGender((Integer) info.get("gender"));
 		toUpdateInfo.setTeacherName((String)info.get("name"));
-		toUpdateInfo.setTeamId((String)info.get("teamName"));
+		toUpdateInfo.setTeamId((String)info.get("teamId"));
 		toUpdateInfo.setUserId((String)info.get("userId"));
 		// 修改数据库中的信息
-		ts.updateOneTeacherInfo(toUpdateInfo);
-		//修改成功
-		status.setValue("1");
-		status.setMessage("修改成功哦~~");
+		int result = ts.updateOneTeacherInfo(toUpdateInfo);
+		if (result == 0) {
+			//用户名重复
+			status.setValue("0");
+			status.setMessage("用户名重复了~~");
+		} else if (result ==1){
+			//修改成功
+			status.setValue("1");
+			status.setMessage("修改成功哦~~");
+		}
 		return status;
 	}
 	/**
@@ -167,15 +174,12 @@ public class SuperController {
 		// 转换参数类型
 		Map news = (Map) newInfo;
 		Map info = (Map) news.get("info");
-		System.out.println(info);
 		// 创建一个新对象
 		ShowAllTeacherInfoDto toUpdateInfo = new ShowAllTeacherInfoDto();
 		toUpdateInfo.setAccount((String)info.get("account"));
-		String sex = (String)info.get("gender");
-		Integer gender = Integer.valueOf(sex);
-		toUpdateInfo.setGender(gender);
+		toUpdateInfo.setGender((Integer)info.get("gender"));
 		toUpdateInfo.setTeacherName((String)info.get("name"));
-		toUpdateInfo.setTeamId((String)info.get("teamName"));
+		toUpdateInfo.setTeamId((String)info.get("teamId"));
 		toUpdateInfo.setUserId((String)info.get("userId"));
 		// 将新增的老师的信息插入到数据库中
 		int flag = ts.inserOneTeacher(toUpdateInfo);
@@ -226,10 +230,6 @@ public class SuperController {
 		// 转换参数类型
 		Map infoMap = (Map) info;
 		Map forUpdateInfo = (Map) infoMap.get("info");
-//		// 获取选中老师的userid
-//		String userId = (String)forUpdateInfo.get("userId");
-//		// 通过userid 查询teacherid
-//		String teacherId = ts.selectTeacherId(userId);
 		// 创建一个新的对象
 		Course course = new Course();
 		course.setId((String)forUpdateInfo.get("courseId"));
@@ -418,6 +418,80 @@ public class SuperController {
 		tms.deleteOneTeam(forDeleteInfo);
 		status.setValue("1");
 		status.setMessage("删除成功哦~");
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: selectOwnStu  
+	 * @Description: 展示全部的学生信息
+	 * @author 王天博
+	 * @param @return      
+	 * @return List
+	 */
+	@RequestMapping("/selectOwnStu.do")
+	@ResponseBody
+	public List selectOwnStu() {
+		List list = ss.selectAllStuList();
+		return list;
+	}
+	/**
+	 * 
+	 * @Title: toUpdateStuInfo  
+	 * @Description: 修改一条学生信息
+	 * @author 王天博
+	 * @param @param formInfo
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/toUpdateStuInfo.do")
+	@ResponseBody
+	public Status toUpdateStuInfo(@RequestBody Object formInfo){
+		Map Info = (Map) formInfo;
+		Map newInfo = (Map) Info.get("form");
+		Student student = new Student();
+		student.setAccount((String)newInfo.get("account"));
+		student.setTeam_id((String)newInfo.get("teamId"));
+		student.setUser_id((String)Info.get("id"));
+		student.setName((String)newInfo.get("name"));
+		student.setGender((Integer)newInfo.get("gender"));
+		student.setTel((String)newInfo.get("tel"));
+		student.setPoint((String)newInfo.get("point"));
+		student.setReward((String)newInfo.get("reward"));
+		//修改学生信息
+		int result = ss.updateOne(student);
+		if (result == 0){
+			status.setValue("0");
+			status.setMessage("用户名重复");
+		}else if (result ==1) {
+			status.setValue("1");
+			status.setMessage("修改成功");
+		}
+		return status;
+	}
+	/**
+	 * 
+	 * @Title: insertStu  
+	 * @Description: 增加一个学生
+	 * @author 王天博
+	 * @param @param newInfo
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/insertStu.do")
+	@ResponseBody
+	public Status insertStu(@RequestBody Object newInfo){
+		// 转换参数类型
+		Map news = (Map) newInfo;
+		Map info = (Map) news.get("info");
+		//操作数据库
+		int result = ss.insertOneStu(info);
+		if(result == 0){
+			status.setValue("0");
+			status.setMessage("用户名重复了哦~");
+		}else if (result == 1) {
+			status.setValue("1");
+			status.setMessage("添加成功了哦~");
+		}
 		return status;
 	}
 }

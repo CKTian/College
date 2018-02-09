@@ -70,19 +70,37 @@ public class TeacherServiceImpl implements TeacherService {
 	/**
 	 * 超级管理员修改一个老师的信息
 	 */
-	public void updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo) {
+	public int updateOneTeacherInfo(ShowAllTeacherInfoDto toUpdateInfo) {
 		// 修改教师的用户名、性别
-		udao.updateOneAccountGender(toUpdateInfo);
-		// 查询出 即将要选的班级 的原班主任
-		String choosedteamId = toUpdateInfo.getTeamId();
-		String id = tdao.selectTeacherId(choosedteamId);
-		// 将原班主任的个人信息中的所带班级置空
-		Teacher teacher = new Teacher();
-		teacher.setId(id);
-		teacher.setTeam_id("0000");
-		tdao.updateOneTeamId(teacher);
-		// 修改教师的姓名和所带班级
-		tdao.updateNameTeam(toUpdateInfo);
+		// 判断用户名是否相同------------
+		List list = udao.selectList();
+		boolean isHad = false;
+		for (int i =0;i<list.size();i++){
+			User user = (User) list.get(i);
+			// 判断id不是一个
+			if(!(toUpdateInfo.getUserId()).equals(user.getId())){
+				// 判断用户名是不是一个
+				if((toUpdateInfo.getAccount()).equals(user.getAccount())){
+					isHad = true;
+				}
+			}
+		}
+		if (isHad) {
+			return 0;
+		}else {
+			udao.updateOneAccountGender(toUpdateInfo);
+			// 查询出 即将要选的班级 的原班主任
+			String choosedteamId = toUpdateInfo.getTeamId();
+			String id = tdao.selectTeacherId(choosedteamId);
+			// 将原班主任的个人信息中的所带班级置空
+			Teacher teacher = new Teacher();
+			teacher.setId(id);
+			teacher.setTeam_id("0000");
+			tdao.updateOneTeamId(teacher);
+			// 修改教师的姓名和所带班级
+			tdao.updateNameTeam(toUpdateInfo);
+			return 1;
+		}
 	}
 	/**
 	 * 超级管理员添加一位老师
