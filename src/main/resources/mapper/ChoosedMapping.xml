@@ -52,6 +52,11 @@
 			delete from b_choosed_course where user_id=#{user_id} and course_id = #{course_id} 
 		</delete>
 		
+		<!-- 根据编号删除所有选课信息 -->
+		<delete id="deleteAllChoose" parameterType="String">
+			delete from b_choosed_course where user_id=#{userId}
+		</delete>
+		
 		<!-- 根据编号修改一个选课信息 -->
 		<update id="updateOne" parameterType="Choosed">
 			update b_choosed_course set course_id=#{course_id},score =#{score} where id=#{id}

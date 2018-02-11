@@ -7,6 +7,7 @@ import com.dqs.entity.Choosed;
 public interface ChoosedDao {
 	public void insertOne(Choosed choosed);
 	public void deleteOne(Choosed choosed);
+	public void deleteAllChoose(String userId);
 	public void updateOne();
 	public Choosed selectOne();
 	public List<Choosed> selectList();

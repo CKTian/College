@@ -15,4 +15,5 @@ public interface StudentService {
 	public int updateOne(Student student);
 	public List selectTeamStus(String teamId);
 	public int insertOneStu(Map info);
+	public void deleteOneStu(Map info);
 }

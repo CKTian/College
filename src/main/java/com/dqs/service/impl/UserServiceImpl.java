@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	public void updateGender(User user) {
-		udao.updateGender(user);
+		udao.updateGenderAccount(user);
 		
 	}
 }

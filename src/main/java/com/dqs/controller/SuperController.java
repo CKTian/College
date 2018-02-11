@@ -494,4 +494,25 @@ public class SuperController {
 		}
 		return status;
 	}
+	/**
+	 * 
+	 * @Title: deleteOneStu  
+	 * @Description: 删除一个学生
+	 * @author 王天博
+	 * @param @param newInfo
+	 * @param @return      
+	 * @return Status
+	 */
+	@RequestMapping("/deleteOneStu.do")
+	@ResponseBody
+	public Status deleteOneStu(@RequestBody Object newInfo){
+		// 转换参数类型
+		Map news = (Map) newInfo;
+		Map info = (Map) news.get("info");
+		// 操作数据库 删除一个学生
+		ss.deleteOneStu(info);
+		status.setValue("1");
+		status.setMessage("删除成功");
+		return status;
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dqs.dao.ChoosedDao;
 import com.dqs.dao.StudentDao;
 import com.dqs.dao.TeamDao;
 import com.dqs.dao.UserDao;
@@ -25,6 +26,8 @@ public class StudentServiceImpl implements StudentService {
 	private TeamDao tdao;
 	@Autowired 
 	private UserDao udao;
+	@Autowired 
+	private ChoosedDao cdao;
 	public List<Student> selectList(String user_id) {
 		return sdao.selectList(user_id);
 	}
@@ -130,5 +133,19 @@ public class StudentServiceImpl implements StudentService {
 			sdao.insertOne(student);
 			return 1;
 		}
+	}
+	/**
+	 * 删除一个学生
+	 */
+	public void deleteOneStu(Map info) {
+		String userId = (String) info.get("user_id");
+		String stuId = (String) info.get("id");
+		// 删除用户表中的学生--id-userId
+		udao.deleteOne(userId);
+		// 删除学生表中的学生--id-stuId
+		sdao.deleteOne(stuId);
+		// 删除选课表中的学生所选课--user_id-UserId
+		cdao.deleteAllChoose(userId);
+		
 	}
 }

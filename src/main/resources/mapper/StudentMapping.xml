@@ -29,7 +29,7 @@
 		
 		<!-- 根据编号删除一条信息 -->
 		<delete id="deleteOne" parameterType="String">
-			delete from b_student where id=#{id}
+			delete from b_student where id=#{stuId}
 		</delete>
 		
 		<!-- 根据用户编号修改一个信息 -->
